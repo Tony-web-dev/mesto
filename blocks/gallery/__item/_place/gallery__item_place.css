@@ -1,0 +1,10 @@
+.gallery__item_place {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29.05px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

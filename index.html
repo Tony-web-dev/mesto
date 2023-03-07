@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="root">
+  <div class="page">
+    <div class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    </div>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/jeacue-ive.jpg" alt="Аватар пользователя">
+        <div class="profile__info">
+          <h1 class="profile__info_name">Жак-Ив Кусто
+            <button class="profile__info_edit-button"></button>
+          </h1>
+          <h2 class="profile__info_about">Исследователь океана</h2>
+        </div>
+        <button class="gallery__add-button"></button>
+      </section>
+      <section class="gallery">
+        <ul class="gallery__items">
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-elbrus.jpg" alt="Гора Эльбрус">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Гора Эльбрус</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-kolsky.jpg" alt="Кольский">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Кольский полуостров</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-dombay.jpg" alt="Домбай">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Домбай</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-karelia.jpg" alt="Карелия">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Карелия</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-kosa.jpg" alt="Куршская коса">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Куршская коса</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+          <li class="gallery__item">
+            <img class="gallery__item_img" src="./images/gallery-karachaevo.jpg" alt="Карачаевск">
+            <div class="gallery__item_heading">
+              <p class="gallery__item_place">Карачаево-Черкесия</p>
+              <img class="gallery__like " src="./images/like.svg" alt="Лайк">
+            </div>
+          </li>
+        </ul>      
+      </section>
+    </main>
+    <div class="footer">
+      <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+    </div>
+    <div class="popup"></div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

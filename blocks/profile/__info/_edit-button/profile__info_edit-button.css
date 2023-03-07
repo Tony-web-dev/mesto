@@ -1,0 +1,9 @@
+.profile__info_edit-button {
+    width: 24px;
+    height: 24px;
+    background-image: url(../../../../images/pencil.png);
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fff;
+}
