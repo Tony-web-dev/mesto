@@ -1,9 +1,14 @@
 .profile__info_edit-button {
     width: 24px;
     height: 24px;
-    background-image: url(../../../../images/pencil.png);
+    background-image: url(../../../../images/pencil.svg);
     background-color: #000;
     background-repeat: no-repeat;
     background-position: center;
     border: 1px solid #fff;
+    margin-left: 10px;
+}
+
+.profile__info_edit-button:hover {
+    opacity: 0.6;
 }

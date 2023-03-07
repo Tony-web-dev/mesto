@@ -1,6 +1,7 @@
 .gallery__item_heading {
     width: 87%;
-    margin: 22px 15px 30px 21px;
+    margin: 22px 15px 29px 21px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
