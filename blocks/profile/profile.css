@@ -5,3 +5,24 @@
     align-items: center;
     gap: 30px;
 }
+
+@media screen and (max-width: 1279px) {
+    .profile {
+        width: calc(100% - 70px*2);
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .profile {
+        width: calc(100% - 19px*2);
+        gap: 18px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .profile {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+}
