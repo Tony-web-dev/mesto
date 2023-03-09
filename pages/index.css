@@ -8,17 +8,18 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
-@import url(../blocks/profile/__info/_name/profile__info_name.css);
-@import url(../blocks/profile/__info/_about/profile__info_about.css);
-@import url(../blocks/profile/__info/_edit-button/profile__info_edit-button.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__about/profile__about.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/gallery/__add-button/gallery__add-button.css);
 @import url(../blocks/gallery/__items/gallery__items.css);
 @import url(../blocks/gallery/__item/gallery__item.css);
-@import url(../blocks/gallery/__item/_img/gallery__item_img.css);
-@import url(../blocks/gallery/__item/_heading/gallery__item_heading.css);
-@import url(../blocks/gallery/__item/_place/gallery__item_place.css);
+@import url(../blocks/gallery/__img/gallery__img.css);
+@import url(../blocks/gallery/__place/gallery__place.css);
+@import url(../blocks/gallery/__heading/gallery__heading.css);
 @import url(../blocks/gallery/__like/gallery__like.css);
+@import url(../blocks/gallery/__like/_active/gallery__like_active.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);
@@ -29,9 +30,3 @@
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_save-button/popup__input_save-button.css);
-
-
-/*
-* {
-    outline: 1px solid yellowgreen;
-}
