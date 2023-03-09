@@ -76,12 +76,14 @@
     <section class="popup">
       <div class="popup__container">
         <button class="popup__close-button"></button>
-        <h2 class="popup__heading">Редактировать профиль</h2>
-        <fieldset class="popup__field">         
-          <input type="text" class="popup__input popup__input_change_name" value="Имя Фамилия" placeholder="Ваше имя" required>
-          <input type="text" class="popup__input popup__input_change_about" value="Род занятий" placeholder="Ваше призвание" required>         
-        </fieldset>
-        <button class="popup__save-button" type="submit">Сохранить</button>
+        <form class="popup__form">
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <fieldset class="popup__field">
+            <input type="text" class="popup__input popup__input_change_name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
+            <input type="text" class="popup__input popup__input_change_about" value="Исследователь океана" placeholder="Ваше призвание" required>
+            <button class="popup__save-button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
       </div>
     </section>
   </div>
