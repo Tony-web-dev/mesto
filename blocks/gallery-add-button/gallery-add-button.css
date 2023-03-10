@@ -1,4 +1,4 @@
-.gallery__add-button {
+.gallery-add-button {
     width: 100%;
     height: 50px;
     background-image: url(../../../images/add-button.svg);
@@ -8,6 +8,6 @@
     border: 2px solid #fff;
 }
 
-.gallery__add-button:hover {
+.gallery-add-button:hover {
     opacity: 0.6;
 }
