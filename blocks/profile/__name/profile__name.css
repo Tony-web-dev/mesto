@@ -1,11 +1,12 @@
 .profile__name {
+    display: inline-block;
     margin: 0;
     font-size: 42px;
     font-weight: 500;
     line-height: 48px;
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 767px) {
     .profile__name {
         text-align: center;
         font-size: 27px;

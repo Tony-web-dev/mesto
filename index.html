@@ -16,10 +16,11 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/jeacue-ive.jpg" alt="Аватар пользователя">
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто
+          <div class="profile__info-block">
             <button class="profile__edit-button"></button>
-          </h1>
-          <h2 class="profile__about">Исследователь океана</h2>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h2 class="profile__about">Исследователь океана</h2>
+          </div>
         </div>
         <button class="gallery__add-button"></button>
       </section>
@@ -77,8 +78,8 @@
         <form class="popup__form">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <fieldset class="popup__field">
-            <input type="text" class="popup__input popup__input_change_name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
-            <input type="text" class="popup__input popup__input_change_about" value="Исследователь океана" placeholder="Ваше призвание" required>
+            <input type="text" maxlength="20" class="popup__input popup__input_change_name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
+            <input type="text" maxlength="45" class="popup__input popup__input_change_about" value="Исследователь океана" placeholder="Ваше призвание" required>
             <button class="popup__save-button" type="submit">Сохранить</button>
           </fieldset>
         </form>
