@@ -1,20 +1,13 @@
 .profile {
-    width: calc(100% - 200px*2);
+    width: 100%;
     display: grid;
     grid-template-columns: 120px 1fr 150px;
     align-items: center;
     gap: 30px;
 }
 
-@media screen and (max-width: 1279px) {
-    .profile {
-        width: calc(100% - 70px*2);
-    }
-}
-
 @media screen and (max-width: 1023px) {
     .profile {
-        width: calc(100% - 19px*2);
         gap: 18px;
     }
 }

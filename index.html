@@ -16,55 +16,55 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/jeacue-ive.jpg" alt="Аватар пользователя">
         <div class="profile__info">
-          <div class="profile__info-block">
-            <button class="profile__edit-button"></button>
+          <div class="profile__name-block">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <h2 class="profile__about">Исследователь океана</h2>
-          </div>
+            <button class="profile__edit-button" type="button"></button>
+          </div> 
+          <p class="profile__about">Исследователь океана</p>
         </div>
-        <button class="gallery-add-button"></button>
+        <button class="profile__gallery-add-button" type="button"></button>
       </section>
       <section class="gallery">
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-elbrus.jpg" alt="Гора Эльбрус">
             <div class="gallery__place">
-              <p class="gallery__heading">Гора Эльбрус</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Гора Эльбрус</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div>
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-kolsky.jpg" alt="Кольский">
             <div class="gallery__place">
-              <p class="gallery__heading">Кольский полуостров</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Кольский полуостров</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div>
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-dombay.jpg" alt="Домбай">
             <div class="gallery__place">
-              <p class="gallery__heading">Домбай</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Домбай</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div>
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-karelia.jpg" alt="Карелия">
             <div class="gallery__place">
-              <p class="gallery__heading">Карелия</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Карелия</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div>
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-kosa.jpg" alt="Куршская коса">
             <div class="gallery__place">
-              <p class="gallery__heading">Куршская коса</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Куршская коса</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div>
           <div class="gallery__item">
             <img class="gallery__img" src="./images/gallery-karachaevo.jpg" alt="Карачаевск">
             <div class="gallery__place">
-              <p class="gallery__heading">Карачаево-Черкесия</p>
-              <button class="gallery__like"></button>
+              <h2 class="gallery__heading">Карачаево-Черкесия</h2>
+              <button class="gallery__like" type="button"></button>
             </div>
           </div> 
       </section>
@@ -72,20 +72,20 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
-        <button class="popup__close-button"></button>
-        <form class="popup__form">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" name="popup-form">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <fieldset class="popup__field">
-            <input type="text" maxlength="20" class="popup__input popup__input_change_name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
-            <input type="text" maxlength="45" class="popup__input popup__input_change_about" value="Исследователь океана" placeholder="Ваше призвание" required>
+            <input type="text" maxlength="20" class="popup__input popup__input_change_name" name="popup-input-name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
+            <input type="text" maxlength="45" class="popup__input popup__input_change_about" name="popup-input-about" value="Исследователь океана" placeholder="Ваше призвание" required>
             <button class="popup__save-button" type="submit">Сохранить</button>
           </fieldset>
         </form>
       </div>
-    </section>
+    </div>
   </div>
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

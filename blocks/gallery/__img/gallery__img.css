@@ -1,7 +1,10 @@
 .gallery__img {
     display: block;
-    width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    width: 282px;
+    height: 282px;
+    margin: auto;
     object-fit: cover;
 }
+
+/* но это очень некрасиво выглядит при некоторых разрешениях экрана (950рх, 600рх), белый фон карточки ужасен
+Может быть можно width 100% и height 78% вместо точных размеров? Тогда изображения пропорционально меняют размер вместе с блоком и нет белых полей */

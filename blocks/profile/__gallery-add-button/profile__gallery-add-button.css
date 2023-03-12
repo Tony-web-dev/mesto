@@ -1,4 +1,4 @@
-.gallery-add-button {
+.profile__gallery-add-button {
     width: 100%;
     height: 50px;
     background-image: url(../../../images/add-button.svg);
@@ -6,8 +6,10 @@
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #fff;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
 }
 
-.gallery-add-button:hover {
+.profile__gallery-add-button:hover {
     opacity: 0.6;
 }
