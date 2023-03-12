@@ -4,9 +4,15 @@
     font-weight: 500;
     line-height: 48px;
     text-overflow: ellipsis;
-    max-width: 550px;
+    max-width: 500px;
     overflow: hidden;
     white-space: nowrap; 
+}
+
+@media screen and (max-width: 1023px) {
+    .profile__name {
+        max-width: 350px;
+    }
 }
 
 @media screen and (max-width: 767px) {
