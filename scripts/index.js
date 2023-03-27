@@ -1,31 +1,31 @@
 //большая просьба ошибки по js расписывать максимально подробно, плаваю -_-
 
-const popupElement = document.querySelector('.popup');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
 const btnEditProfile = document.querySelector('.profile__edit-button');
-const btnClosePopup = popupElement.querySelector('.popup__close-button');
+const btnClosePopup = popupEditProfile.querySelector('.popup__close-button');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
-let popupInputName = popupElement.querySelector('.popup__input_change_name');
-let popupInputAbout = popupElement.querySelector('.popup__input_change_about');
-let formEdit = popupElement.querySelector('.popup__form');
+let popupInputName = popupEditProfile.querySelector('.popup__input_change_name');
+let popupInputAbout = popupEditProfile.querySelector('.popup__input_change_about');
+let formEdit = popupEditProfile.querySelector('.popup__form');
 
-const openPopup = () => {
-    popupElement.classList.add('popup_opened');
+const openPopupEditProfile = () => {
+    popupEditProfile.classList.add('popup_opened');
     popupInputName.value = profileName.textContent;
     popupInputAbout.value = profileAbout.textContent;
 }
 
-const closePopup = () => {
-    popupElement.classList.remove('popup_opened');
+const closePopupEditProfile = () => {
+    popupEditProfile.classList.remove('popup_opened');
 }
 
 const changeInfo = (e) => {
     e.preventDefault();
     profileName.textContent = popupInputName.value;
     profileAbout.textContent = popupInputAbout.value;
-    closePopup();
+    closePopupEditProfile();
 }
 
-btnEditProfile.addEventListener('click', openPopup);
-btnClosePopup.addEventListener('click', closePopup);
+btnEditProfile.addEventListener('click', openPopupEditProfile);
+btnClosePopup.addEventListener('click', closePopupEditProfile);
 formEdit.addEventListener('submit', changeInfo);

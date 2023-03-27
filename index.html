@@ -26,6 +26,7 @@
       </section>
       <section class="gallery">
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-elbrus.jpg" alt="Гора Эльбрус">
             <div class="gallery__place">
               <h2 class="gallery__heading">Гора Эльбрус</h2>
@@ -33,6 +34,7 @@
             </div>
           </div>
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-kolsky.jpg" alt="Кольский">
             <div class="gallery__place">
               <h2 class="gallery__heading">Кольский полуостров</h2>
@@ -40,6 +42,7 @@
             </div>
           </div>
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-dombay.jpg" alt="Домбай">
             <div class="gallery__place">
               <h2 class="gallery__heading">Домбай</h2>
@@ -47,6 +50,7 @@
             </div>
           </div>
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-karelia.jpg" alt="Карелия">
             <div class="gallery__place">
               <h2 class="gallery__heading">Карелия</h2>
@@ -54,6 +58,7 @@
             </div>
           </div>
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-kosa.jpg" alt="Куршская коса">
             <div class="gallery__place">
               <h2 class="gallery__heading">Куршская коса</h2>
@@ -61,6 +66,7 @@
             </div>
           </div>
           <div class="gallery__item">
+            <button class="gallery__trash" type="button" aria-label=""></button>
             <img class="gallery__img" src="./images/gallery-karachaevo.jpg" alt="Карачаевск">
             <div class="gallery__place">
               <h2 class="gallery__heading">Карачаево-Черкесия</h2>
@@ -72,7 +78,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <form class="popup__form" name="popup-edit-form">
@@ -81,6 +87,19 @@
             <input type="text" class="popup__input popup__input_change_name" name="popup-edit-name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
             <input type="text" class="popup__input popup__input_change_about" name="popup-edit-about" value="Исследователь океана" placeholder="Ваше призвание" required>
             <button class="popup__save-button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_add-gallery-item">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <form class="popup__form" name="popup-add-form">
+          <h2 class="popup__heading">Новое место</h2>
+          <fieldset class="popup__field">
+            <input type="text" class="popup__input popup__input_add_name" name="popup-add-name" value="" placeholder="Название" required>
+            <input type="text" class="popup__input popup__input_add-url" name="popup-add-url" value="" placeholder="Ссылка на картинку" required>
+            <button class="popup__save-button" type="submit">Создать</button>
           </fieldset>
         </form>
       </div>
