@@ -48,6 +48,7 @@ const btnCloseGallery = popupAddGalleryItem.querySelector('.popup__close-button'
 let newItemName = popupAddGalleryItem.querySelector('.popup__input_add_name'); //поле ввода названия картинки
 let newItemUrl = popupAddGalleryItem.querySelector('.popup__input_add-url'); //поле ввода адреса картинки
 const formAdd = document.forms['popup-add-form']; //форма для вызова события в паопапе добавл.картинки
+
 //массив с картинками
 const initialCards = [
   {
@@ -78,6 +79,9 @@ const initialCards = [
 const gallery = document.querySelector('.gallery'); //галерея
 const galleryItemTemplate = document.querySelector('#gallery__item').content; //темплейт единицы галереи
 
+const popupBigPicture = document.querySelector('.popup_big-picture'); //попап увелич.картинки
+const btnClosePicture = popupBigPicture.querySelector('.popup__close-button'); //кнопка закрытия увелич.картинки
+
 const item = {heading: '.gallery__heading', link: '.gallery__img'}; //единица массива
 
 //функция создания новой единицы галереи
@@ -85,13 +89,24 @@ const createGalleryItem = (item) => {
   const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
   galleryItem.querySelector('.gallery__heading').textContent = item.heading;
   galleryItem.querySelector('.gallery__img').src = item.link;
+
+  //вешаем обработчик лайка на каждый item
   galleryItem.querySelector('.gallery__like').addEventListener('click', e => {
       e.target.classList.toggle('gallery__like_active');
-  }) //кнопка лайка на каждой карточке
+  });
+
+  //вешаем обработчик корзины на каждый item
   galleryItem.querySelector('.gallery__trash').addEventListener('click', e => {
     const card = e.target.closest('.gallery__item');
     card.remove();
-  }) //кнопка корзины на каждой карточке
+  });
+
+  //вешаем обработчик клика по картинке и вызов попапа big-picture
+  galleryItem.querySelector('.gallery__img').addEventListener('click', () => {
+    openPopup(popupBigPicture);
+    popupBigPicture.querySelector('.gallery__heading').textContent = item.heading;
+    popupBigPicture.querySelector('.gallery__img').src = item.link;
+  });
   return galleryItem; //возвращаем значение новой единицы для дальнейшего использования
  }
 
@@ -119,3 +134,8 @@ btnCloseGallery.addEventListener('click', () => {
 
 //событие по кнопке "добавить"
 formAdd.addEventListener('submit', addNewGalleryItem); 
+
+//событие по кнопке закрытия попапа увелич.картинки
+btnClosePicture.addEventListener('click', () => {
+  closePopup(popupBigPicture);
+});
