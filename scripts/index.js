@@ -1,22 +1,22 @@
+
+const popupElement = document.querySelector('.popup'); //общая переменная попапа
 const popupEditProfile = document.querySelector('.popup_edit-profile'); //попап редакт.профиля
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
-const btnCloseProfile = popupEditProfile.querySelector('.popup__close-button'); //кнопка закрытия редакт.профиля
+const btnClosePopup = document.querySelector('.popup__close-button'); //кнопка закрытия редакт.профиля
 const profileName = document.querySelector('.profile__name'); //имя профиля
 const profileAbout = document.querySelector('.profile__about'); //род занятий профиля
-let popupInputName = popupEditProfile.querySelector('.popup__input_change_name'); //поле ввода нового имени
-let popupInputAbout = popupEditProfile.querySelector('.popup__input_change_about'); //поле ввода нового рода занятий
+let popupInputName = popupElement.querySelector('.popup__input_change_name'); //поле ввода нового имени
+let popupInputAbout = popupElement.querySelector('.popup__input_change_about'); //поле ввода нового рода занятий
 const formEdit = document.forms['popup-edit-form']; //форма для отправки события
 
-//функция открытия попапа профиля
-const openPopupEditProfile = () => {
-    popupEditProfile.classList.add('popup_opened');
-    popupInputName.value = profileName.textContent;
-    popupInputAbout.value = profileAbout.textContent;
+//функция открытия попапа
+const openPopup = (popupElement) => {
+  popupElement.classList.add('popup_opened');   
 }
 
-//функция закрытия попала профиля
-const closePopupEditProfile = () => {
-    popupEditProfile.classList.remove('popup_opened');
+//функция закрытия попала
+const closePopup = (popupElement) => {
+  popupElement.classList.remove('popup_opened');
 }
 
 //функция замены данных профиля
@@ -24,12 +24,23 @@ const changeInfo = (e) => {
     e.preventDefault();
     profileName.textContent = popupInputName.value;
     profileAbout.textContent = popupInputAbout.value;
-    closePopupEditProfile();
+    closePopup(popupEditProfile);
 }
 
-btnEditProfile.addEventListener('click', openPopupEditProfile); //событие по кнопке редакт.профиля
-btnCloseProfile.addEventListener('click', closePopupEditProfile); //событие по кнопке закрытия попапа
-formEdit.addEventListener('submit', changeInfo); //событие по кнопке "сохранить"
+//событие по кнопке редакт.профиля
+btnEditProfile.addEventListener('click', () => {
+  openPopup(popupEditProfile);
+  popupInputName.value = profileName.textContent;
+  popupInputAbout.value = profileAbout.textContent;
+});
+
+//событие по кнопке закрытия попапа
+btnClosePopup.addEventListener('click', () => {
+  closePopup(popupEditProfile);
+});
+
+//событие по кнопке "сохранить"
+formEdit.addEventListener('submit', changeInfo); 
 
 const popupAddGalleryItem = document.querySelector('.popup_add-gallery-item'); //попап добавл.картинки
 const btnAddGalleryItem = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
@@ -89,23 +100,22 @@ initialCards.forEach(item => {
   gallery.append(createGalleryItem(item));
 });
 
-//функция открытия попапа добавл.картинки
-const openPopupAddGallery = () => {
-  popupAddGalleryItem.classList.add('popup_opened');
-}
-
-//функция закрытия попапа добавл.картинки
-const closePopupAddGallery = () => {
-  popupAddGalleryItem.classList.remove('popup_opened');
-}
-
 //функция добавления картинки через попап
 const addNewGalleryItem = (e) => {
   e.preventDefault();
   gallery.prepend(createGalleryItem({heading: newItemName.value, link: newItemUrl.value}));
-  closePopupAddGallery();
+  closePopup(popupAddGalleryItem);
 }
 
-btnAddGalleryItem.addEventListener('click', openPopupAddGallery); //событие по кнопке открытия попапа добавл.картинки
-btnCloseGallery.addEventListener('click', closePopupAddGallery); //событие по кнопке закрытия попапа добавл.картинки
-formAdd.addEventListener('submit', addNewGalleryItem); //событие по кнопке "добавить"
+//событие по кнопке открытия попапа добавл.картинки
+btnAddGalleryItem.addEventListener('click', () => {
+  openPopup(popupAddGalleryItem);
+});
+
+//событие по кнопке закрытия попапа добавл.картинки
+btnCloseGallery.addEventListener('click', () => {
+  closePopup(popupAddGalleryItem);
+});
+
+//событие по кнопке "добавить"
+formAdd.addEventListener('submit', addNewGalleryItem); 
