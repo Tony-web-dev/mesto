@@ -24,56 +24,7 @@
         </div>
         <button class="profile__gallery-add-button" type="button" aria-label="Добавить фото"></button>
       </section>
-      <section class="gallery">
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-elbrus.jpg" alt="Гора Эльбрус">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Гора Эльбрус</h2>
-              <button class="gallery__like" type="button" aria-label=""></button>
-            </div>
-          </div>
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-kolsky.jpg" alt="Кольский">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Кольский полуостров</h2>
-              <button class="gallery__like" type="button"></button>
-            </div>
-          </div>
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-dombay.jpg" alt="Домбай">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Домбай</h2>
-              <button class="gallery__like" type="button"></button>
-            </div>
-          </div>
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-karelia.jpg" alt="Карелия">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Карелия</h2>
-              <button class="gallery__like" type="button"></button>
-            </div>
-          </div>
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-kosa.jpg" alt="Куршская коса">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Куршская коса</h2>
-              <button class="gallery__like" type="button"></button>
-            </div>
-          </div>
-          <div class="gallery__item">
-            <button class="gallery__trash" type="button" aria-label=""></button>
-            <img class="gallery__img" src="./images/gallery-karachaevo.jpg" alt="Карачаевск">
-            <div class="gallery__place">
-              <h2 class="gallery__heading">Карачаево-Черкесия</h2>
-              <button class="gallery__like" type="button"></button>
-            </div>
-          </div> 
-      </section>
+      <section class="gallery"></section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
@@ -105,6 +56,16 @@
       </div>
     </div>
   </div>
+  <template id="gallery__item">
+    <div class="gallery__item">
+      <button class="gallery__trash" type="button" aria-label="Удалить"></button>
+      <img class="gallery__img" alt="Фотография">
+      <div class="gallery__place">
+        <h2 class="gallery__heading"></h2>
+        <button class="gallery__like" type="button" aria-label="Поставить лайк"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
