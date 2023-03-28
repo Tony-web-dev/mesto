@@ -104,8 +104,8 @@ const createGalleryItem = (item) => {
   //вешаем обработчик клика по картинке и вызов попапа big-picture
   galleryItem.querySelector('.gallery__img').addEventListener('click', () => {
     openPopup(popupBigPicture);
-    popupBigPicture.querySelector('.gallery__heading').textContent = item.heading;
-    popupBigPicture.querySelector('.gallery__img').src = item.link;
+    popupBigPicture.querySelector('.popup__img-heading').textContent = item.heading;
+    popupBigPicture.querySelector('.popup__img').src = item.link;
   });
   return galleryItem; //возвращаем значение новой единицы для дальнейшего использования
  }

@@ -1,9 +1,13 @@
-.gallery__heading_big {
+.popup__img-heading {
     position: absolute;
     left: 0;
     bottom: -22px;
+    margin: 0;
     color: #fff;
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
