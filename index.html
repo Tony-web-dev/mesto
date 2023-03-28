@@ -35,8 +35,8 @@
         <form class="popup__form" name="popup-edit-form">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <fieldset class="popup__field">
-            <input type="text" class="popup__input popup__input_change_name" name="popup-edit-name" value="Жак-Ив Кусто" placeholder="Ваше имя" required>
-            <input type="text" class="popup__input popup__input_change_about" name="popup-edit-about" value="Исследователь океана" placeholder="Ваше призвание" required>
+            <input type="text" class="popup__input popup__input_change_name" name="popup-edit-name" value="" placeholder="Ваше имя" required>
+            <input type="text" class="popup__input popup__input_change_about" name="popup-edit-about" value="" placeholder="Ваше призвание" required>
             <button class="popup__save-button" type="submit">Сохранить</button>
           </fieldset>
         </form>
@@ -56,9 +56,9 @@
       </div>
     </div>
     <div class="popup popup_big-picture">
-      <div class="popup__container popup__container_big">
+      <div class="popup__container_big">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <img class="popup__img" alt="Фотография">
+        <img class="popup__img">
         <h2 class="popup__img-heading"></h2>
       </div>
     </div>
@@ -66,7 +66,7 @@
   <template id="gallery__item">
     <div class="gallery__item">
       <button class="gallery__trash" type="button" aria-label="Удалить"></button>
-      <img class="gallery__img" alt="Фотография">
+      <img class="gallery__img">
       <div class="gallery__place">
         <h2 class="gallery__heading"></h2>
         <button class="gallery__like" type="button" aria-label="Поставить лайк"></button>

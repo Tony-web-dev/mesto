@@ -16,6 +16,12 @@
     }
 }
 
+@media screen and (max-width: 620px) {
+    .profile__gallery-add-button {
+        width: 282px;
+    }
+}
+
 .profile__gallery-add-button:hover {
     opacity: 0.6;
 }
