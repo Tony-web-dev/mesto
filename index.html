@@ -32,12 +32,32 @@
     <div class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form class="popup__form" name="popup-edit-form">
-          <h2 class="popup__heading">Редактировать профиль</h2>
-          <fieldset class="popup__field">
-            <input type="text" class="popup__input popup__input_change_name" name="popup-edit-name" value="" placeholder="Ваше имя" required>
-            <input type="text" class="popup__input popup__input_change_about" name="popup-edit-about" value="" placeholder="Ваше призвание" required>
-            <button class="popup__save-button" type="submit">Сохранить</button>
+        <form class="form" name="edit-form" novalidate>
+          <h2 class="form__heading">Редактировать профиль</h2>
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input
+              type="text"
+              class="form__input form__input_edit-name"
+              name="edit-name"
+              value=""
+              minlength="2"
+              maxlength="40"
+              placeholder="Ваше имя" required>
+              <span class="form__message-error edit-name-message-error"></span>
+            </label>
+            <label class="form__field">
+              <input
+              type="text"
+              class="form__input form__input_edit-about" 
+              name="edit-about" 
+              value="" 
+              minlength="2" 
+              maxlength="200"
+              placeholder="Ваше призвание" required>
+              <span class="form__message-error edit-about-message-error"></span>
+            </label>
+            <button class="form__save-button" type="submit" disabled>Сохранить</button>
           </fieldset>
         </form>
       </div>
@@ -45,12 +65,30 @@
     <div class="popup popup_add-gallery-item">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form class="popup__form" name="popup-add-form">
-          <h2 class="popup__heading">Новое место</h2>
-          <fieldset class="popup__field">
-            <input type="text" class="popup__input popup__input_add_name" name="popup-add-name" value="" placeholder="Название" required>
-            <input type="text" class="popup__input popup__input_add-url" name="popup-add-url" value="" placeholder="Ссылка на картинку" required>
-            <button class="popup__save-button" type="submit">Создать</button>
+        <form class="form" name="add-form" novalidate>
+          <h2 class="form__heading">Новое место</h2>
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input 
+              type="text" 
+              class="form__input form__input_add-name" 
+              name="add-name" 
+              value="" 
+              minlength="2" 
+              maxlength="30"
+              placeholder="Название" required>
+              <span class="form__message-error add-name-message-error"></span>
+            </label>
+            <label class="form__field">
+              <input 
+              type="url" 
+              class="form__input form__input_add-url" 
+              name="add-url" 
+              value="" 
+              placeholder="Ссылка на картинку" required>
+              <span class="form__message-error add-url-message-error"></span>
+            </label>
+            <button class="form__save-button" type="submit" disabled>Создать</button>
           </fieldset>
         </form>
       </div>
@@ -73,6 +111,8 @@
       </div>
     </div>
   </template>
-  <script src="./scripts/index.js"></script>
+  <script defer src="./scripts/cards.js"></script>
+  <script defer src="./scripts/validate.js"></script>
+  <script defer src="./scripts/index.js"></script>
 </body>
 </html>

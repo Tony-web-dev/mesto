@@ -2,74 +2,73 @@ const popupEditProfile = document.querySelector('.popup_edit-profile'); //поп
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
 const profileName = document.querySelector('.profile__name'); //имя пользователя
 const profileAbout = document.querySelector('.profile__about'); //род занятий пользователя
-const popupInputName = popupEditProfile.querySelector('.popup__input_change_name'); //поле ввода нового имени
-const popupInputAbout = popupEditProfile.querySelector('.popup__input_change_about'); //поле ввода нового рода занятий
-const formEditProfile = document.forms['popup-edit-form']; //форма редакт.профиля
+const inputProfileName = popupEditProfile.querySelector('.form__input_edit-name'); //поле ввода нового имени
+const inputProfileAbout = popupEditProfile.querySelector('.form__input_edit-about'); //поле ввода нового рода занятий
+const formEditProfile = document.forms['edit-form']; //форма редакт.профиля
 
-const popupAddGalleryItem = document.querySelector('.popup_add-gallery-item'); //попап добавл.картинки
-const btnAddGalleryItem = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
-const newGalleryItemName = popupAddGalleryItem.querySelector('.popup__input_add_name'); //поле ввода названия картинки
-const newGalleryItemUrl = popupAddGalleryItem.querySelector('.popup__input_add-url'); //поле ввода адреса картинки
-const formAddGalleryItem = document.forms['popup-add-form']; //форма добавл.картинки
+const popupAddGallery = document.querySelector('.popup_add-gallery-item'); //попап добавл.картинки
+const btnAddGallery = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
+const inputGalleryItemName = popupAddGallery.querySelector('.form__input_add-name'); //поле ввода названия картинки
+const inputGalleryItemUrl = popupAddGallery.querySelector('.form__input_add-url'); //поле ввода адреса картинки
+const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки
 
 const gallery = document.querySelector('.gallery'); //галерея
 const galleryItemTemplate = document.querySelector('#gallery__item').content; //темплейт единицы галереи
 const popupBigPicture = document.querySelector('.popup_big-picture'); //попап увелич.картинки
 
-const openPopup = element => element.classList.add('popup_opened'); //функция открытия попапа
-const closePopup = element => element.classList.remove('popup_opened'); //функция закрытия попапа
+//функция открытия попапа
+const openPopup = element => {
+  element.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEscape);
+}
+
+//функция закрытия попапа
+const closePopup = element => {
+  element.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEscape);
+}
+
+//функция закрытия попапа по escape
+const closePopupEscape = e => {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (e.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+
+//функция закрытия попапа кликом вне модалки
+const closePopupOverlay = e => {
+  if (e.target === e.currentTarget) {
+    closePopup(e.currentTarget);
+  }
+}
+//событие по клику вне модалки
+document.querySelectorAll('.popup').forEach(element => element.addEventListener('click', closePopupOverlay));
 
 //функция замены данных профиля
-const changeInfoProfile = e => {
+const changeProfile = e => {
     e.preventDefault();
-    profileName.textContent = popupInputName.value;
-    profileAbout.textContent = popupInputAbout.value;
+    profileName.textContent = inputProfileName.value;
+    profileAbout.textContent = inputProfileAbout.value;
     closePopup(popupEditProfile);
 }
 
 //событие по кнопке редакт.профиля
 btnEditProfile.addEventListener('click', () => {
+  resetErrors(formEditProfile);
+  inputProfileName.value = profileName.textContent;
+  inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
-  popupInputName.value = profileName.textContent;
-  popupInputAbout.value = profileAbout.textContent;
 });
 
 //закрытие попапов
 document.querySelectorAll('.popup__close-button').forEach(button => {
-  const buttonsPopup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(buttonsPopup));
+  const popupBtns = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popupBtns));
 });
 
 //событие по кнопке "сохранить"
-formEditProfile.addEventListener('submit', changeInfoProfile);
-
-//массив с картинками
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+formEditProfile.addEventListener('submit', changeProfile);
 
 //функция создания новой единицы галереи
 const createGalleryItem = item => {
@@ -104,13 +103,25 @@ initialCards.forEach(item => gallery.append(createGalleryItem(item)));
 //функция добавления картинки через попап
 const addNewGalleryItem = e => {
   e.preventDefault();
-  gallery.prepend(createGalleryItem({name: newGalleryItemName.value, link: newGalleryItemUrl.value}));
-  closePopup(popupAddGalleryItem);
+  gallery.prepend(createGalleryItem({name: inputGalleryItemName.value, link: inputGalleryItemUrl.value}));
+  closePopup(popupAddGallery);
   formAddGalleryItem.reset();
 };
 
 //событие по кнопке открытия попапа добавл.картинки
-btnAddGalleryItem.addEventListener('click', () => openPopup(popupAddGalleryItem));
+btnAddGallery.addEventListener('click', () => {
+  formAddGalleryItem.reset();
+  resetErrors(formAddGalleryItem);
+  openPopup(popupAddGallery);
+})
 
 //событие по кнопке "добавить"
 formAddGalleryItem.addEventListener('submit', addNewGalleryItem);
+
+//функция сброса ошибок при повторном открытии попапа
+const resetErrors = (form) => {
+  form.querySelectorAll('.form__input').forEach(input => {
+    const currentErrorContainer = document.querySelector(`.${input.name}-message-error`);
+    hideError(input, currentErrorContainer, validationConfig.inputErrorClass);
+  })
+}

@@ -30,10 +30,18 @@
 @import url(../blocks/popup/__img-heading/popup__img-heading.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__photo-container/popup__photo-container.css);
-@import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
-@import url(../blocks/popup/__heading/popup__heading.css);
-@import url(../blocks/popup/__field/popup__field.css);
-@import url(../blocks/popup/__input/popup__input.css);
-@import url(../blocks/popup/__save-button/popup__save-button.css);
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__heading/form__heading.css);
+@import url(../blocks/form/__set/form__set.css);
+@import url(../blocks/form/__field/form__field.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_error/form__input_error.css);
+@import url(../blocks/form/__message-error/form__message-error.css);
+@import url(../blocks/form/__save-button/form__save-button.css);
+@import url(../blocks/form/__save-button/_disabled/form__save-button_disabled.css);
 
+/*
+* {
+    outline: 1px solid yellowgreen;
+}
