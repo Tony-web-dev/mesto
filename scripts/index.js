@@ -15,6 +15,11 @@ const formAddGalleryItem = document.forms['add-form']; //форма добавл
 const gallery = document.querySelector('.gallery'); //галерея
 const galleryItemTemplate = document.querySelector('#gallery__item').content; //темплейт единицы галереи
 const popupBigPicture = document.querySelector('.popup_big-picture'); //попап увелич.картинки
+const bigPictureHeading = popupBigPicture.querySelector('.popup__img-heading'); //название картинки
+const bigPictureImg = popupBigPicture.querySelector('.popup__img'); //масштабированная картинка
+
+const btnSubmitProfile = formEditProfile.querySelector('.form__save-button'); //кнопка сабмита в попапе редакт.профиля
+const btnSubmitGallery = formAddGalleryItem.querySelector('.form__save-button'); //кнопка сабмита в попапе добавл.картинки
 
 //функция открытия попапа
 const openPopup = element => {
@@ -30,8 +35,8 @@ const closePopup = element => {
 
 //функция закрытия попапа по escape
 const closePopupEscape = e => {
-  const popupOpened = document.querySelector('.popup_opened');
   if (e.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
 }
@@ -59,6 +64,7 @@ btnEditProfile.addEventListener('click', () => {
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
+  disableButton(btnSubmitProfile, validationConfig.inactiveButtonClass);
 });
 
 //закрытие попапов
@@ -90,9 +96,9 @@ const createGalleryItem = item => {
   //вешаем обработчик клика по картинке и вызов попапа big-picture
   galleryItem.querySelector('.gallery__img').addEventListener('click', () => {
     openPopup(popupBigPicture);
-    popupBigPicture.querySelector('.popup__img-heading').textContent = item.name;
-    popupBigPicture.querySelector('.popup__img').src = item.link;
-    popupBigPicture.querySelector('.popup__img').alt = `Фото ${item.name}`;
+    bigPictureHeading.textContent = item.name;
+    bigPictureImg.src = item.link;
+    bigPictureImg.alt = `Фото ${item.name}`;
   });
   return galleryItem;
  }
@@ -113,6 +119,7 @@ btnAddGallery.addEventListener('click', () => {
   formAddGalleryItem.reset();
   resetErrors(formAddGalleryItem);
   openPopup(popupAddGallery);
+  disableButton(btnSubmitGallery, validationConfig.inactiveButtonClass);
 })
 
 //событие по кнопке "добавить"
@@ -125,3 +132,4 @@ const resetErrors = (form) => {
     hideError(input, currentErrorContainer, validationConfig.inputErrorClass);
   })
 }
+
