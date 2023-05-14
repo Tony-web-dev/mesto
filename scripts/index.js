@@ -1,3 +1,6 @@
+import initialCards from "./cards.js";
+//import Card from "./Card.js";
+
 const popupEditProfile = document.querySelector('.popup_edit-profile'); //попап редакт.профиля
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
 const profileName = document.querySelector('.profile__name'); //имя пользователя
@@ -13,7 +16,7 @@ const inputGalleryItemUrl = popupAddGallery.querySelector('.form__input_add-url'
 const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки
 
 const gallery = document.querySelector('.gallery'); //галерея
-const galleryItemTemplate = document.querySelector('#gallery__item').content; //темплейт единицы галереи
+const galleryItemTemplate = '#gallery__item'; //темплейт единицы галереи
 const popupBigPicture = document.querySelector('.popup_big-picture'); //попап увелич.картинки
 const bigPictureHeading = popupBigPicture.querySelector('.popup__img-heading'); //название картинки
 const bigPictureImg = popupBigPicture.querySelector('.popup__img'); //масштабированная картинка
@@ -76,35 +79,60 @@ document.querySelectorAll('.popup__close-button').forEach(button => {
 //событие по кнопке "сохранить"
 formEditProfile.addEventListener('submit', changeProfile);
 
-//функция создания новой единицы галереи
-const createGalleryItem = item => {
-  const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
-  galleryItem.querySelector('.gallery__heading').textContent = item.name;
-  galleryItem.querySelector('.gallery__img').src = item.link;
-  galleryItem.querySelector('.gallery__img').alt = `Фото ${item.name}`;
+class Card {
+  constructor(item, galleryItemTemplate) {
+    this._item = item;
+    this._link = item.link;
+    this._name = item.name;
+    this._galleryItemTemplate = galleryItemTemplate;
+  }
 
-  //вешаем обработчик лайка на каждый item
-  galleryItem.querySelector('.gallery__like').addEventListener('click', e => {
+  _getClone = () => {
+    const galleryItem = document.querySelector(this._galleryItemTemplate).content.querySelector('.gallery__item').cloneNode(true);
+    return galleryItem;
+  }
+
+  _setEventListeners = () => {
+    this._galleryLike.addEventListener('click', e => {
       e.target.classList.toggle('gallery__like_active');
   });
 
-  //вешаем обработчик корзины на каждый item
-  galleryItem.querySelector('.gallery__trash').addEventListener('click', e => {
-    e.target.closest('.gallery__item').remove();
-  });
+    this._galleryTrash.addEventListener('click', e => {
+      e.target.closest('.gallery__item').remove();
+    });
 
-  //вешаем обработчик клика по картинке и вызов попапа big-picture
-  galleryItem.querySelector('.gallery__img').addEventListener('click', () => {
-    openPopup(popupBigPicture);
-    bigPictureHeading.textContent = item.name;
-    bigPictureImg.src = item.link;
-    bigPictureImg.alt = `Фото ${item.name}`;
-  });
-  return galleryItem;
- }
+    this._galleryImage.addEventListener('click', () => {
+      openPopup(popupBigPicture);
+      bigPictureHeading.textContent = this._name;
+      bigPictureImg.src = this._link;
+      bigPictureImg.alt = `Фото ${this._name}`;
+  })
+}
+
+  createGalleryItem = () => {
+    this._galleryItem = this._getClone();
+    this._galleryImage = this._galleryItem.querySelector('.gallery__img');
+    this._galleryLike = this._galleryItem.querySelector('.gallery__like');
+    this._galleryTrash = this._galleryItem.querySelector('.gallery__trash');
+    this._galleryHeading = this._galleryItem.querySelector('.gallery__heading');
+    this._galleryHeading.textContent = this._name;
+    this._galleryImage.src = this._link;
+    this._galleryImage.alt = `Фото ${this._name}`;
+    this._setEventListeners();
+    return this._galleryItem;
+  }
+}
+
+//добавляем карточку в нужный контейнер
+const addItem = (container, item) => {
+  container.append(item);
+}
 
 //добавление массива с картинками в html
-initialCards.forEach(item => gallery.append(createGalleryItem(item)));
+initialCards.forEach(item => {
+  const card = new Card(item, galleryItemTemplate);
+  addItem(gallery, card.createGalleryItem());
+});
 
 //функция добавления картинки через попап
 const addNewGalleryItem = e => {
@@ -132,4 +160,3 @@ const resetErrors = (form) => {
     hideError(input, currentErrorContainer, validationConfig.inputErrorClass);
   })
 }
-
