@@ -1,6 +1,6 @@
 import initialCards from "./cards.js";
-import card from "./Card.js";
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const popupEditProfile = document.querySelector('.popup_edit-profile'); //попап редакт.профиля
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
@@ -22,8 +22,14 @@ const popupBigPicture = document.querySelector('.popup_big-picture'); //попа
 const bigPictureHeading = popupBigPicture.querySelector('.popup__img-heading'); //название картинки
 const bigPictureImg = popupBigPicture.querySelector('.popup__img'); //масштабированная картинка
 
-//const btnSubmitProfile = formEditProfile.querySelector('.form__save-button'); //кнопка сабмита в попапе редакт.профиля
-//const btnSubmitGallery = formAddGalleryItem.querySelector('.form__save-button'); //кнопка сабмита в попапе добавл.картинки
+//объект для валидации
+const validationConfig = {
+  inputSelector: '.form__input',//поле ввода
+  submitButtonSelector: '.form__save-button',//кнопка сохранить
+  inactiveButtonClass: 'form__save-button_disabled',//модиф кнопки
+  inputErrorClass: 'form__input_error',//модиф поля ввода
+  errorSpanTemplate: '-message-error',//шаблон спана
+};
 
 //функция открытия попапа
 const openPopup = element => {
@@ -39,7 +45,6 @@ const closePopup = element => {
 
 //функция закрытия попапа по escape
 const closePopupEscape = e => {
-  const popupOpened = document.querySelector('.popup_opened');
   if (e.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
@@ -66,11 +71,11 @@ const changeProfile = e => {
 
 //событие по кнопке редакт.профиля
 btnEditProfile.addEventListener('click', () => {
-  //resetErrors(formEditProfile);
+  formEditProfile.reset();
+  formEditProfileValidate.resetErrors();
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
-  //disableButton(btnSubmitProfile, validationConfig.inactiveButtonClass);
 })
 
 //закрытие попапов
@@ -90,21 +95,31 @@ const openBigPopup = (item) => {
   openPopup(popupBigPicture);
 }
 
-//функция добалвения картинки в оболочку
-const addItem = (section, card) => {
+//функция добавления картинки в конец списка
+const addItemToEnd = (section, card) => {
   section.append(card);
+}
+
+//функция добавления картинки в начало списка
+const addItemToBegin = (section, card) => {
+  section.prepend(card);
 }
 
 //добавление массива с картинками в html
 initialCards.forEach(item => {
-  const card = new Card(item, galleryItemTemplate, openBigPopup);
-  addItem(gallery, card.createGalleryItem());
+  addItemToEnd(gallery, new Card(item, galleryItemTemplate, openBigPopup).createGalleryItem());
 })
+
+const formEditProfileValidate = new FormValidator(validationConfig, formEditProfile);
+formEditProfileValidate.enableValidation();
+
+const formAddGalleryItemValidate = new FormValidator(validationConfig, formAddGalleryItem);
+formAddGalleryItemValidate.enableValidation();
 
 //функция добавления картинки через попап
 const addNewGalleryItem = e => {
   e.preventDefault();
-  gallery.prepend(createGalleryItem({name: inputGalleryItemName.value, link: inputGalleryItemUrl.value}));
+  addItemToBegin(gallery, new Card({name: inputGalleryItemName.value, link: inputGalleryItemUrl.value}, galleryItemTemplate, openBigPopup).createGalleryItem());
   closePopup(popupAddGallery);
   formAddGalleryItem.reset();
 }
@@ -112,18 +127,9 @@ const addNewGalleryItem = e => {
 //событие по кнопке открытия попапа добавл.картинки
 btnAddGallery.addEventListener('click', () => {
   formAddGalleryItem.reset();
-  //resetErrors(formAddGalleryItem);
+  formAddGalleryItemValidate.resetErrors();
   openPopup(popupAddGallery);
-  //disableButton(btnSubmitGallery, validationConfig.inactiveButtonClass);
 })
 
 //событие по кнопке "добавить"
 formAddGalleryItem.addEventListener('submit', addNewGalleryItem);
-
-/* функция сброса ошибок при повторном открытии попапа
-const resetErrors = (form) => {
-  form.querySelectorAll('.form__input').forEach(input => {
-    const currentErrorContainer = document.querySelector(`.${input.name}-message-error`);
-    hideError(input, currentErrorContainer, validationConfig.inputErrorClass);
-  })
-} */
