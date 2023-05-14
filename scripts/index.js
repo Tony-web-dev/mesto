@@ -110,9 +110,11 @@ initialCards.forEach(item => {
   addItemToEnd(gallery, new Card(item, galleryItemTemplate, openBigPopup).createGalleryItem());
 })
 
+//проверяем форму редакт.профиля валидатором
 const formEditProfileValidate = new FormValidator(validationConfig, formEditProfile);
 formEditProfileValidate.enableValidation();
 
+//проверяем форму добавл.картинки валидатором
 const formAddGalleryItemValidate = new FormValidator(validationConfig, formAddGalleryItem);
 formAddGalleryItemValidate.enableValidation();
 
