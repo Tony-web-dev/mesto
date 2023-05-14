@@ -1,5 +1,4 @@
-import initialCards from "./cards.js";
-//import Card from "./Card.js";
+import initialCards from "./cards.js"
 
 const popupEditProfile = document.querySelector('.popup_edit-profile'); //попап редакт.профиля
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
@@ -8,15 +7,13 @@ const profileAbout = document.querySelector('.profile__about'); //род зан�
 const inputProfileName = popupEditProfile.querySelector('.form__input_edit-name'); //поле ввода нового имени
 const inputProfileAbout = popupEditProfile.querySelector('.form__input_edit-about'); //поле ввода нового рода занятий
 const formEditProfile = document.forms['edit-form']; //форма редакт.профиля
-
 const popupAddGallery = document.querySelector('.popup_add-gallery-item'); //попап добавл.картинки
 const btnAddGallery = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
 const inputGalleryItemName = popupAddGallery.querySelector('.form__input_add-name'); //поле ввода названия картинки
 const inputGalleryItemUrl = popupAddGallery.querySelector('.form__input_add-url'); //поле ввода адреса картинки
 const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки
-
 const gallery = document.querySelector('.gallery'); //галерея
-const galleryItemTemplate = '#gallery__item'; //темплейт единицы галереи
+const galleryItemTemplate = document.querySelector('#gallery__item').content; //темплейт единицы галереи
 const popupBigPicture = document.querySelector('.popup_big-picture'); //попап увелич.картинки
 const bigPictureHeading = popupBigPicture.querySelector('.popup__img-heading'); //название картинки
 const bigPictureImg = popupBigPicture.querySelector('.popup__img'); //масштабированная картинка
@@ -38,6 +35,7 @@ const closePopup = element => {
 
 //функция закрытия попапа по escape
 const closePopupEscape = e => {
+  const popupOpened = document.querySelector('.popup_opened');
   if (e.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
@@ -50,6 +48,7 @@ const closePopupOverlay = e => {
     closePopup(e.currentTarget);
   }
 }
+
 //событие по клику вне модалки
 document.querySelectorAll('.popup').forEach(element => element.addEventListener('click', closePopupOverlay));
 
@@ -79,60 +78,35 @@ document.querySelectorAll('.popup__close-button').forEach(button => {
 //событие по кнопке "сохранить"
 formEditProfile.addEventListener('submit', changeProfile);
 
-class Card {
-  constructor(item, galleryItemTemplate) {
-    this._item = item;
-    this._link = item.link;
-    this._name = item.name;
-    this._galleryItemTemplate = galleryItemTemplate;
-  }
+//вызов модального окна большой картинки
+const openBigPopup = (item) => {
+  openPopup(popupBigPicture);
+  bigPictureHeading.textContent = item.name;
+  bigPictureImg.src = item.link;
+  bigPictureImg.alt = `Фото ${item.name}`;
+}
 
-  _getClone = () => {
-    const galleryItem = document.querySelector(this._galleryItemTemplate).content.querySelector('.gallery__item').cloneNode(true);
-    return galleryItem;
-  }
-
-  _setEventListeners = () => {
-    this._galleryLike.addEventListener('click', e => {
+//функция создания новой единицы галереи
+const createGalleryItem = item => {
+  const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
+  galleryItem.querySelector('.gallery__heading').textContent = item.name;
+  galleryItem.querySelector('.gallery__img').src = item.link;
+  galleryItem.querySelector('.gallery__img').alt = `Фото ${item.name}`;
+  //вешаем обработчик лайка на каждый item
+  galleryItem.querySelector('.gallery__like').addEventListener('click', e => {
       e.target.classList.toggle('gallery__like_active');
   });
-
-    this._galleryTrash.addEventListener('click', e => {
-      e.target.closest('.gallery__item').remove();
-    });
-
-    this._galleryImage.addEventListener('click', () => {
-      openPopup(popupBigPicture);
-      bigPictureHeading.textContent = this._name;
-      bigPictureImg.src = this._link;
-      bigPictureImg.alt = `Фото ${this._name}`;
-  })
-}
-
-  createGalleryItem = () => {
-    this._galleryItem = this._getClone();
-    this._galleryImage = this._galleryItem.querySelector('.gallery__img');
-    this._galleryLike = this._galleryItem.querySelector('.gallery__like');
-    this._galleryTrash = this._galleryItem.querySelector('.gallery__trash');
-    this._galleryHeading = this._galleryItem.querySelector('.gallery__heading');
-    this._galleryHeading.textContent = this._name;
-    this._galleryImage.src = this._link;
-    this._galleryImage.alt = `Фото ${this._name}`;
-    this._setEventListeners();
-    return this._galleryItem;
-  }
-}
-
-//добавляем карточку в нужный контейнер
-const addItem = (container, item) => {
-  container.append(item);
-}
+  //вешаем обработчик корзины на каждый item
+  galleryItem.querySelector('.gallery__trash').addEventListener('click', e => {
+    e.target.closest('.gallery__item').remove();
+  });
+  //вешаем обработчик клика по картинке
+  galleryItem.querySelector('.gallery__img').addEventListener('click', e => openBigPopup(item));
+  return galleryItem;
+ }
 
 //добавление массива с картинками в html
-initialCards.forEach(item => {
-  const card = new Card(item, galleryItemTemplate);
-  addItem(gallery, card.createGalleryItem());
-});
+initialCards.forEach(item => gallery.append(createGalleryItem(item)));
 
 //функция добавления картинки через попап
 const addNewGalleryItem = e => {
@@ -152,7 +126,6 @@ btnAddGallery.addEventListener('click', () => {
 
 //событие по кнопке "добавить"
 formAddGalleryItem.addEventListener('submit', addNewGalleryItem);
-
 //функция сброса ошибок при повторном открытии попапа
 const resetErrors = (form) => {
   form.querySelectorAll('.form__input').forEach(input => {
@@ -160,3 +133,4 @@ const resetErrors = (form) => {
     hideError(input, currentErrorContainer, validationConfig.inputErrorClass);
   })
 }
+
