@@ -1,4 +1,6 @@
-import initialCards from "./cards.js"
+import initialCards from "./cards.js";
+import card from "./Card.js";
+import Card from "./Card.js";
 
 const popupEditProfile = document.querySelector('.popup_edit-profile'); //попап редакт.профиля
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля
@@ -87,77 +89,6 @@ const openBigPopup = (item) => {
   bigPictureImg.alt = `Фото ${item.name}`;
   openPopup(popupBigPicture);
 }
-
-class Card {
-  constructor(item, galleryItemTemplate, openBigPopup) {
-    this._item = item;
-    this._link = item.link;
-    this._name = item.name;
-    this._galleryItemTemplate = galleryItemTemplate;
-    this._openBigPopup = openBigPopup;
-  }
-
-  //клонируем шаблон
-  _getCloneElement = () => {
-    return document.querySelector(this._galleryItemTemplate).content.querySelector('.gallery__item').cloneNode(true); //модифицировать в 2 строки?
-  }
-
-  //поставить лайк
-  _handleLike = () => {
-    this._galleryLike.classList.toggle('gallery__like_active');
-  }
-
-  //удалить карточку
-  _handleDelete = () => {
-    this._galleryItem.remove();
-  }
-
-  //открыть модальное окно с картинкой
-  _handleOpenBigPopup = () => {
-    this._openBigPopup(this._item)
-  }
-
-  //навешиваем слушатели кликов в карточке
-  _setEventListeners = () => {
-    this._galleryLike.addEventListener('click', this._handleLike); //клик по лайку
-    this._galleryTrash.addEventListener('click', this._handleDelete); //клик по корзине
-    this._galleryImage.addEventListener('click', this._handleOpenBigPopup); //клик по картинке
-  }
-
-  //создаем единицу галереи
-  createGalleryItem = () => {
-    this._galleryItem = this._getCloneElement(); //стереть, если выше ок
-    this._galleryImage = this._galleryItem.querySelector('.gallery__img'); //мод?
-    this._galleryHeading = this._galleryItem.querySelector('.gallery__heading'); //мод?
-    this._galleryHeading.textContent = this._name; //мод?
-    this._galleryImage.src = this._link; //мод?
-    this._galleryImage.alt = `Фото ${this._name}`; //мод?
-    this._galleryLike = this._galleryItem.querySelector('.gallery__like');
-    this._galleryTrash = this._galleryItem.querySelector('.gallery__trash');
-    this._setEventListeners();
-    return this._galleryItem;
-  }
-}
-
-/*функция создания новой единицы галереи
-const createGalleryItem = item => {
-  const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
-  galleryItem.querySelector('.gallery__heading').textContent = item.name;
-  galleryItem.querySelector('.gallery__img').src = item.link;
-  galleryItem.querySelector('.gallery__img').alt = `Фото ${item.name}`;
-  //вешаем обработчик лайка на каждый item
-  galleryItem.querySelector('.gallery__like').addEventListener('click', e => {
-      e.target.classList.toggle('gallery__like_active');
-  });
-  //вешаем обработчик корзины на каждый item
-  galleryItem.querySelector('.gallery__trash').addEventListener('click', e => {
-    e.target.closest('.gallery__item').remove();
-  });
-  //вешаем обработчик клика по картинке
-  galleryItem.querySelector('.gallery__img').addEventListener('click', () => openBigPopup(item));
-
-  return galleryItem;
- }*/
 
 //функция добалвения картинки в оболочку
 const addItem = (section, card) => {
