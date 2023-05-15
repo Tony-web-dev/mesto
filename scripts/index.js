@@ -105,9 +105,15 @@ const addItemToBegin = (section, card) => {
   section.prepend(card);
 }
 
+//функция создания карточки
+const createCard = (item) => {
+  const cardElement = new Card(item, galleryItemTemplate, openBigPopup).createGalleryItem();
+  return cardElement;
+}
+
 //добавление массива с картинками в html
 initialCards.forEach(item => {
-  addItemToEnd(gallery, new Card(item, galleryItemTemplate, openBigPopup).createGalleryItem());
+  addItemToEnd(gallery, createCard(item));
 })
 
 //проверяем форму редакт.профиля валидатором
@@ -121,7 +127,7 @@ formAddGalleryItemValidate.enableValidation();
 //функция добавления картинки через попап
 const addNewGalleryItem = e => {
   e.preventDefault();
-  addItemToBegin(gallery, new Card({name: inputGalleryItemName.value, link: inputGalleryItemUrl.value}, galleryItemTemplate, openBigPopup).createGalleryItem());
+  addItemToBegin(gallery, createCard({name: inputGalleryItemName.value, link: inputGalleryItemUrl.value}));
   closePopup(popupAddGallery);
   formAddGalleryItem.reset();
 }
