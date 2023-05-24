@@ -9,6 +9,10 @@ export default class Section {
         this._section.append(domElement);
     }
 
+    addItemToBegin = (domElement) => {
+        this._section.prepend(domElement);
+    }
+
     renderItems = () => {
         this._items.forEach(item => {
             this.addItemToEnd(this.renderer(item));
