@@ -2,20 +2,22 @@ export default class Section {
     constructor({ items, renderer },  sectionSelector) {
         this._section = document.querySelector(sectionSelector);
         this._items = items;
-        this.renderer = renderer;
+        this._renderer = renderer;
     }
 
-    addItemToEnd = (domElement) => {
-        this._section.append(domElement);
+    //добавление картинки в конец списка (отрисовка массива initialCards)
+    addItemToEnd = (item) => {
+        this._section.append(this._renderer(item));
+    }
+    //добавление картинки в начало списка (отрисовка новых карточек)
+    addItemToBegin = (item) => {
+        this._section.prepend(this._renderer(item));
     }
 
-    addItemToBegin = (domElement) => {
-        this._section.prepend(domElement);
-    }
-
+    //загрузка карточек
     renderItems = () => {
         this._items.forEach(item => {
-            this.addItemToEnd(this.renderer(item));
+            this.addItemToEnd(item);
         })
     }   
 }

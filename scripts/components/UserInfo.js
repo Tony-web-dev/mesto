@@ -4,16 +4,18 @@ export default class UserInfo {
         this._profileAbout = document.querySelector(profileAboutSelector);
     }
 
+    //получение текущей информации о пользователе
     getUserInfo = () => {
         const userInfo = {
-            name: this._profileName.textContent,
+            user: this._profileName.textContent,
             about: this._profileAbout.textContent
             }
         return userInfo;
     }
 
+    //внедрение информации о пользователе
     setUserInfo = (userInfo) => {
-        this._profileName.textContent = userInfo.name;
+        this._profileName.textContent = userInfo.user;
         this._profileAbout.textContent = userInfo.about;
     }
 }

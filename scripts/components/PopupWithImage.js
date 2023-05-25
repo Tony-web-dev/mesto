@@ -7,6 +7,7 @@ export default class PopupWithImage extends Popup {
         this._bigPictureHeading = this._popupElement.querySelector('.popup__img-heading');
     }
 
+    //дополняем метод open родителя
     open = (item) => {
         this._bigPictureImg.src = item.link;
         this._bigPictureImg.alt = `Фото ${item.name}`;

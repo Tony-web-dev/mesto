@@ -8,7 +8,8 @@ export default class PopupWithForm extends Popup {
         this._inputList = this._form.querySelectorAll('.form__input');
     }
 
-    getInputValues() {
+    //сбор информации из полей ввода
+    _getInputValues() {
         this._values = {};
         this._inputList.forEach(input => {
             this._values[input.name] = input.value;
@@ -16,18 +17,24 @@ export default class PopupWithForm extends Popup {
         return this._values;
     }
 
-
+    //передача информации из полей ввода в отрисовку страницы
     setInputValues(inputValues) {
         this._inputList.forEach(input => {
             input.value = inputValues[input.name];
         })
     }
 
+    //вешаем слушатели родителя и кнопки сабмита
     setEventListeners() {
         super.setEventListeners();
-        this._form.addEventListener('submit', this._submitCallback);
+        this._form.addEventListener('submit', e => {
+            e.preventDefault();
+            this._submitCallback(this._getInputValues());
+            this.close();
+        });
 }
 
+    //дополнение очистки формы к методу close родителя
     close() {
         super.close();
         this._form.reset();
