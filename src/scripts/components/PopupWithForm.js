@@ -32,7 +32,7 @@ export default class PopupWithForm extends Popup {
             this._submitCallback(this._getInputValues());
             this.close();
         });
-}
+    }
 
     //дополнение очистки формы к методу close родителя
     close() {

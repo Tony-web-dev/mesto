@@ -1,3 +1,4 @@
+import "./index.css";
 import Card from "../scripts/components/Card.js"
 import FormValidator from "../scripts/components/FormValidator.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
@@ -54,8 +55,7 @@ section.renderItems();
 //попап добавления картинок
 const popupAddGallery = new PopupWithForm(popupAddGallerySelector, ({}) => {
   section.addItemToBegin({name: inputGalleryItemHeading.value, link: inputGalleryItemUrl.value});
-});
-  
+});  
 popupAddGallery.setEventListeners();
 
 //событие по кнопке открытия попапа добавл.картинки 

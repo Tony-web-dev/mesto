@@ -25,13 +25,13 @@ const initialCards = [
     }
   ];
 
-const galleryItemTemplate = '#gallery__item'; //селектор темплейта единицы галереи
-const gallerySelector = '.gallery'; //галерея
+const galleryItemTemplate = '#gallery__item'; //селектор шаблона единицы галереи
+const gallerySelector = '.gallery'; //селектор галереи
 const popupEditProfileSelector = '.popup_edit-profile'; //попап редакт.профиля
 const formEditProfile = document.forms['edit-form']; //форма редакт.профиля 
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля 
-const profileNameSelector = '.profile__name';
-const profileAboutSelector = '.profile__about';
+const profileNameSelector = '.profile__name'; //селектор имени пользователя в профиле
+const profileAboutSelector = '.profile__about'; //селектор рода занятий пользователя в профиле
 
 const popupAddGallerySelector = '.popup_add-gallery-item'; //попап добавл.картинок
 const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки 

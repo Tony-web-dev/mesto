@@ -13,7 +13,7 @@ export default class UserInfo {
         return userInfo;
     }
 
-    //внедрение информации о пользователе
+    //внедрение информации о пользователе на страницу
     setUserInfo = (userInfo) => {
         this._profileName.textContent = userInfo.user;
         this._profileAbout.textContent = userInfo.about;
