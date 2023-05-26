@@ -6,11 +6,10 @@ export default class UserInfo {
 
     //получение текущей информации о пользователе
     getUserInfo = () => {
-        const userInfo = {
+        return {
             user: this._profileName.textContent,
             about: this._profileAbout.textContent
             }
-        return userInfo;
     }
 
     //внедрение информации о пользователе на страницу

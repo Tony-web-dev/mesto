@@ -10,14 +10,14 @@ export default class PopupWithForm extends Popup {
 
     //сбор информации из полей ввода
     _getInputValues() {
-        this._values = {};
-        this._inputList.forEach(input => {
-            this._values[input.name] = input.value;
+        const values = {}; 
+        this._inputList.forEach(input => { 
+            values[input.name] = input.value; 
         })
-        return this._values;
+        return values; 
     }
 
-    //передача информации из полей ввода в отрисовку страницы
+    //передача информации из html в открытый попап
     setInputValues(inputValues) {
         this._inputList.forEach(input => {
             input.value = inputValues[input.name];

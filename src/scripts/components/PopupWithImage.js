@@ -9,9 +9,9 @@ export default class PopupWithImage extends Popup {
 
     //дополняем метод open родителя
     open = (item) => {
-        this._bigPictureImg.src = item.link;
-        this._bigPictureImg.alt = `Фото ${item.name}`;
-        this._bigPictureHeading.textContent = item.name;
+        this._bigPictureImg.src = item.url;
+        this._bigPictureImg.alt = `Фото ${item.heading}`;
+        this._bigPictureHeading.textContent = item.heading;
         super.open();
     }
 }

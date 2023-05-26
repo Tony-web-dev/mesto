@@ -17,8 +17,6 @@ import {
   popupAddGallerySelector,
   formAddGalleryItem,
   btnAddGallery,
-  inputGalleryItemHeading,
-  inputGalleryItemUrl,
   popupImageSelector,
   validationConfig
 } from "../scripts/utils/constants.js";
@@ -30,14 +28,14 @@ const popupBigPicture = new PopupWithImage(popupImageSelector);
 popupBigPicture.setEventListeners();
 
 //попап редактирования профиля
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, item => {
-  profile.setUserInfo(item);
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, () => {
+  profile.setUserInfo(popupEditProfile._getInputValues());
 })
 popupEditProfile.setEventListeners();
 
 //событие по кнопке редакт.профиля 
 btnEditProfile.addEventListener('click', () => {  
-  formEditProfileValidate.resetErrors(); 
+  formEditProfileValidate.resetValidation(); 
   popupEditProfile.setInputValues(profile.getUserInfo());
   popupEditProfile.open();
 }) 
@@ -53,14 +51,14 @@ const section = new Section({
 section.renderItems(); 
 
 //попап добавления картинок
-const popupAddGallery = new PopupWithForm(popupAddGallerySelector, ({}) => {
-  section.addItemToBegin({name: inputGalleryItemHeading.value, link: inputGalleryItemUrl.value});
-});  
+const popupAddGallery = new PopupWithForm(popupAddGallerySelector, () => {
+  section.addItemToBegin(section._renderer(popupAddGallery._getInputValues()));
+}); 
 popupAddGallery.setEventListeners();
 
 //событие по кнопке открытия попапа добавл.картинки 
 btnAddGallery.addEventListener('click', () => { 
-  formAddGalleryItemValidate.resetErrors(); 
+  formAddGalleryItemValidate.resetValidation(); 
   popupAddGallery.open();
 }) 
 

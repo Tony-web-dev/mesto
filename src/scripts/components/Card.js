@@ -1,8 +1,6 @@
 export default class Card {
     constructor(item, galleryItemTemplate, openBigPopup) {
       this._item = item;
-      this._link = item.link;
-      this._name = item.name;
       this._galleryItemTemplate = galleryItemTemplate;
       this._openBigPopup = openBigPopup;
     }
@@ -40,9 +38,9 @@ export default class Card {
       this._galleryItem = this._getCloneElement();
       this._galleryImage = this._galleryItem.querySelector('.gallery__img');
       this._galleryHeading = this._galleryItem.querySelector('.gallery__heading');
-      this._galleryHeading.textContent = this._name;
-      this._galleryImage.src = this._link;
-      this._galleryImage.alt = `Фото ${this._name}`;
+      this._galleryHeading.textContent = this._item.heading;
+      this._galleryImage.src = this._item.url;
+      this._galleryImage.alt = `Фото ${this._item.heading}`;
       this._galleryLike = this._galleryItem.querySelector('.gallery__like');
       this._galleryTrash = this._galleryItem.querySelector('.gallery__trash');
       this._setEventListeners();

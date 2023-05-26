@@ -1,27 +1,27 @@
 const initialCards = [
     {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+      heading: 'Архыз',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+      heading: 'Челябинская область',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
     {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+      heading: 'Иваново',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
     },
     {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+      heading: 'Камчатка',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+      heading: 'Холмогорский район',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
     },
     {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+      heading: 'Байкал',
+      url: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
 
@@ -36,8 +36,6 @@ const profileAboutSelector = '.profile__about'; //селектор рода за
 const popupAddGallerySelector = '.popup_add-gallery-item'; //попап добавл.картинок
 const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки 
 const btnAddGallery = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
-const inputGalleryItemHeading = document.querySelector('.form__input_add-heading'); //поле ввода названия картинки 
-const inputGalleryItemUrl = document.querySelector('.form__input_add-url'); //поле ввода адреса картинки  
 
 const popupImageSelector = '.popup_big-picture'; //попап большой картинки
 
@@ -62,8 +60,6 @@ export {
   popupAddGallerySelector,
   formAddGalleryItem,
   btnAddGallery,
-  inputGalleryItemHeading,
-  inputGalleryItemUrl,
   popupImageSelector,
   validationConfig
 }

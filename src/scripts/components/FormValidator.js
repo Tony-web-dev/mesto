@@ -6,7 +6,7 @@ export default class FormValidator {
       this._inactiveButtonClass = config.inactiveButtonClass;
       this._inputErrorClass = config.inputErrorClass;
       this._errorSpanTemplate = config.errorSpanTemplate;
-      this._inputList = form.querySelectorAll(this._inputSelector);
+      this._inputList = Array.from(form.querySelectorAll(this._inputSelector));
       this._btnSubmit = form.querySelector(this._submitButtonSelector)
     }
   
@@ -59,7 +59,7 @@ export default class FormValidator {
   
     //проверка валидности всех полей
     _hasValidInput = () => {
-      return Array.from(this._inputList).every(input => input.validity.valid);
+      return this._inputList.every(input => input.validity.valid);
     }
   
     //активация кнопки сабмита
@@ -75,7 +75,7 @@ export default class FormValidator {
     }
   
     //сброс ошибок при открытии форм
-    resetErrors = () => {
+    resetValidation = () => {
       this._inputList.forEach(input => {
         const currentErrorContainer = this._form.querySelector(`.${input.name}${this._errorSpanTemplate}`);
         this._hideError(input, currentErrorContainer);
