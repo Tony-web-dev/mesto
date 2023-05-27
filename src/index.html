@@ -13,7 +13,9 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/jeacue-ive.jpg')%>" alt="Аватар пользователя">
+        <button class="profile__avatar-button" type="button" aria-label="Изменить аватар">
+          <img class="profile__avatar" src="<%=require('./images/jeacue-ive.jpg')%>" alt="Аватар пользователя">
+        </button>
         <div class="profile__info">
           <div class="profile__name-block">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -39,7 +41,6 @@
               type="text"
               class="form__input form__input_edit-name"
               name="user"
-              value=""
               minlength="2"
               maxlength="40"
               placeholder="Ваше имя" required>
@@ -49,8 +50,7 @@
               <input
               type="text"
               class="form__input form__input_edit-about" 
-              name="about" 
-              value="" 
+              name="about"  
               minlength="2" 
               maxlength="200"
               placeholder="Ваше призвание" required>
@@ -72,7 +72,6 @@
               type="text" 
               class="form__input form__input_add-heading" 
               name="heading" 
-              value="" 
               minlength="2" 
               maxlength="30"
               placeholder="Название" required>
@@ -82,8 +81,7 @@
               <input 
               type="url" 
               class="form__input form__input_add-url" 
-              name="url" 
-              value="" 
+              name="url"  
               placeholder="Ссылка на картинку" required>
               <span class="form__message-error url-message-error"></span>
             </label>
@@ -99,6 +97,33 @@
         <h2 class="popup__img-heading"></h2>
       </div>
     </div>
+    <div class="popup popup_edit-avatar">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <form class="form" name="edit-avatar" novalidate>
+          <h2 class="form__heading">Обновить аватар</h2>
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input
+              type="url"
+              class="form__input form__input_edit-avatar"
+              name="avatar"
+              placeholder="Ссылка на картинку" required>
+            </label>
+            <button class="form__save-button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_delete-gallery-item">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <form class="form" name="delete-item">
+          <h2 class="form__heading">Вы уверены?</h2>
+          <button class="form__save-button" type="submit">Да</button>
+        </form>
+      </div>
+    </div> 
   </div>
   <template id="gallery__item">
     <div class="gallery__item">
@@ -106,7 +131,10 @@
       <img class="gallery__img">
       <div class="gallery__place">
         <h2 class="gallery__heading"></h2>
-        <button class="gallery__like" type="button" aria-label="Поставить лайк"></button>
+        <div class="gallery__like-block">
+          <button class="gallery__like" type="button" aria-label="Поставить лайк"></button>
+          <p class="gallery__like-counter">0</p>
+        </div> 
       </div>
     </div>
   </template>
