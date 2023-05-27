@@ -2,7 +2,7 @@ export default class Section {
     constructor({ items, renderer },  sectionSelector) {
         this._section = document.querySelector(sectionSelector);
         this._items = items;
-        this._renderer = renderer;
+        this.renderer = renderer;
     }
 
     //добавление картинки в конец списка (отрисовка массива initialCards)
@@ -17,7 +17,7 @@ export default class Section {
     //загрузка карточек
     renderItems = () => {
         this._items.forEach(item => {
-            this.addItemToEnd(this._renderer(item));
+            this.addItemToEnd(this.renderer(item));
         })
     }   
 }

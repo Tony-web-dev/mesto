@@ -28,8 +28,8 @@ const popupBigPicture = new PopupWithImage(popupImageSelector);
 popupBigPicture.setEventListeners();
 
 //попап редактирования профиля
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, () => {
-  profile.setUserInfo(popupEditProfile._getInputValues());
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, item => {
+  profile.setUserInfo(item);
 })
 popupEditProfile.setEventListeners();
 
@@ -51,8 +51,8 @@ const section = new Section({
 section.renderItems(); 
 
 //попап добавления картинок
-const popupAddGallery = new PopupWithForm(popupAddGallerySelector, () => {
-  section.addItemToBegin(section._renderer(popupAddGallery._getInputValues()));
+const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
+  section.addItemToBegin(section.renderer(item));
 }); 
 popupAddGallery.setEventListeners();
 
