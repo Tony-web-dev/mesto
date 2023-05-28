@@ -25,17 +25,22 @@ const initialCards = [
     }
   ];
 
-const galleryItemTemplate = '#gallery__item'; //селектор шаблона единицы галереи
-const gallerySelector = '.gallery'; //селектор галереи
+
 const popupEditProfileSelector = '.popup_edit-profile'; //попап редакт.профиля
 const formEditProfile = document.forms['edit-form']; //форма редакт.профиля 
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля 
-const profileNameSelector = '.profile__name'; //селектор имени пользователя в профиле
-const profileAboutSelector = '.profile__about'; //селектор рода занятий пользователя в профиле
+const profileNameSelector = '.profile__name'; //имя пользователя в профиле
+const profileAboutSelector = '.profile__about'; //род занятий пользователя в профиле
+const popupEditAvatarSelector = '.popup_edit-avatar'; //попап редакт.аватара
+const formEditAvatar = document.forms['edit-avatar']; //форма редакт.аватара
+const btnEditAvatar = document.querySelector('.profile__avatar-button'); //кнопка открытия попапа редакт.аватара
 
+const galleryItemTemplate = '#gallery__item'; //шаблон единицы галереи
+const gallerySelector = '.gallery'; //галерея
 const popupAddGallerySelector = '.popup_add-gallery-item'; //попап добавл.картинок
 const formAddGalleryItem = document.forms['add-form']; //форма добавл.картинки 
 const btnAddGallery = document.querySelector('.profile__gallery-add-button'); //кнопка открытия попапа добавл.картинки
+const popupDeleteItemSelector = '.popup_delete-gallery-item'; //попап удаления карточки
 
 const popupImageSelector = '.popup_big-picture'; //попап большой картинки
 
@@ -50,16 +55,20 @@ const validationConfig = {
 
 export {
   initialCards,
-  galleryItemTemplate,
-  gallerySelector,
   popupEditProfileSelector,
   formEditProfile,
   btnEditProfile,
   profileNameSelector,
   profileAboutSelector,
+  popupEditAvatarSelector,
+  formEditAvatar,
+  btnEditAvatar,
+  galleryItemTemplate,
+  gallerySelector,
   popupAddGallerySelector,
   formAddGalleryItem,
   btnAddGallery,
+  popupDeleteItemSelector,
   popupImageSelector,
   validationConfig
 }

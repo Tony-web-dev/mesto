@@ -17,7 +17,7 @@ export default class Section {
     //загрузка карточек
     renderItems = () => {
         this._items.forEach(item => {
-            this.addItemToEnd(this.renderer(item));
+            this.renderer(item);
         })
     }   
 }

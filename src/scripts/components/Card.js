@@ -1,8 +1,9 @@
 export default class Card {
-    constructor(item, galleryItemTemplate, openBigPopup) {
+    constructor(item, galleryItemTemplate, openBigPopup, openPopupDeleteItem) {
       this._item = item;
       this._galleryItemTemplate = galleryItemTemplate;
       this._openBigPopup = openBigPopup;
+      this._openPopupDeleteItem = openPopupDeleteItem;
     }
   
     //клонируем шаблон
@@ -16,14 +17,19 @@ export default class Card {
       this._galleryLike.classList.toggle('gallery__like_active');
     }
   
-    //удалить карточку
+    //вызов попапа удаления карточки
     _handleDelete = () => {
+      this._openPopupDeleteItem(this);
+    }
+
+    //удалить карточку
+    removeItem = () => {
       this._galleryItem.remove();
     }
   
     //открыть модальное окно с картинкой
     _handleOpenBigPopup = () => {
-      this._openBigPopup(this._item)
+      this._openBigPopup(this._item);
     }
   
     //навешиваем слушатели кликов в карточке
