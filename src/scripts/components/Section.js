@@ -1,7 +1,7 @@
 export default class Section {
-    constructor({ items, renderer },  sectionSelector) {
+    constructor(renderer,  sectionSelector) {
         this._section = document.querySelector(sectionSelector);
-        this._items = items;
+        // this._items = items;
         this.renderer = renderer;
     }
 
@@ -15,8 +15,8 @@ export default class Section {
     }
 
     //загрузка карточек
-    renderItems = () => {
-        this._items.forEach(item => {
+    renderItems = (items) => {
+        items.forEach(item => {
             this.renderer(item);
         })
     }   

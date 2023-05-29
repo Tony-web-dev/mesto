@@ -31,6 +31,7 @@ const formEditProfile = document.forms['edit-form']; //форма редакт.�
 const btnEditProfile = document.querySelector('.profile__edit-button'); //кнопка открытия попапа редакт.профиля 
 const profileNameSelector = '.profile__name'; //имя пользователя в профиле
 const profileAboutSelector = '.profile__about'; //род занятий пользователя в профиле
+const profileAvatarSelector = '.profile__avatar';
 const popupEditAvatarSelector = '.popup_edit-avatar'; //попап редакт.аватара
 const formEditAvatar = document.forms['edit-avatar']; //форма редакт.аватара
 const btnEditAvatar = document.querySelector('.profile__avatar-button'); //кнопка открытия попапа редакт.аватара
@@ -60,6 +61,7 @@ export {
   btnEditProfile,
   profileNameSelector,
   profileAboutSelector,
+  profileAvatarSelector,
   popupEditAvatarSelector,
   formEditAvatar,
   btnEditAvatar,

@@ -4,6 +4,8 @@ export default class Card {
       this._galleryItemTemplate = galleryItemTemplate;
       this._openBigPopup = openBigPopup;
       this._openPopupDeleteItem = openPopupDeleteItem;
+      this._myID = item.myID;
+      this._ownerID = item.owner_id;
     }
   
     //клонируем шаблон
@@ -38,17 +40,27 @@ export default class Card {
       this._galleryTrash.addEventListener('click', this._handleDelete); //клик по корзине
       this._galleryImage.addEventListener('click', this._handleOpenBigPopup); //клик по картинке
     }
+
+    //видимость иконки корзины
+    _checkGalleryTrash = () => {
+      if(this._myID === this._ownerID) {
+        this._galleryTrash.style.visibility = 'visible';
+      } else {
+        this._galleryTrash.style.visibility = 'hidden';
+      }
+    }
   
     //создаем единицу галереи
     createGalleryItem = () => {
       this._galleryItem = this._getCloneElement();
       this._galleryImage = this._galleryItem.querySelector('.gallery__img');
       this._galleryHeading = this._galleryItem.querySelector('.gallery__heading');
-      this._galleryHeading.textContent = this._item.heading;
-      this._galleryImage.src = this._item.url;
-      this._galleryImage.alt = `Фото ${this._item.heading}`;
+      this._galleryHeading.textContent = this._item.name;
+      this._galleryImage.src = this._item.link;
+      this._galleryImage.alt = `Фото ${this._item.name}`;
       this._galleryLike = this._galleryItem.querySelector('.gallery__like');
       this._galleryTrash = this._galleryItem.querySelector('.gallery__trash');
+      this._checkGalleryTrash();
       this._setEventListeners();
       return this._galleryItem;
     }
