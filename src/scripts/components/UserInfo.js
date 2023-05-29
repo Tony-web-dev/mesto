@@ -19,4 +19,14 @@ export default class UserInfo {
         this._profileAbout.textContent = about;
         this._profileAvatar.src = avatar;
     }
+
+    //получить id
+    getUserID(id) {
+        this._id = id;
+    }
+
+    //установить id
+    setUserID() {
+        return this._id;
+    }
 }

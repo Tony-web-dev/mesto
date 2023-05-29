@@ -1,10 +1,15 @@
-import { name } from "file-loader";
-
-export default class Api {
+class Api {
     constructor(options) {
         this._url = options.baseUrl;
         this._headers = options.headers;
-        // this._authorization = options.headers.authorization;
+    }
+
+    _checkResponse(res) {
+        if(res.ok) {
+            return res.json();
+        } else {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
     }
 
     getUserInfo() {
@@ -13,13 +18,7 @@ export default class Api {
                 authorization: this._headers.authorization
             }
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(this._checkResponse)
         .catch((err) => {
             console.log(err);
         });
@@ -34,13 +33,7 @@ export default class Api {
                 about: user.about
             })
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(this._checkResponse)
         .catch((err) => {
             console.log(err);
         });
@@ -54,13 +47,7 @@ export default class Api {
                 avatar: user.avatar
             })
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(this._checkResponse)
         .catch((err) => {
             console.log(err);
         });
@@ -72,13 +59,7 @@ export default class Api {
                 authorization: this._headers.authorization
             }
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(this._checkResponse)
         .catch((err) => {
             console.log(err);
         });
@@ -93,18 +74,57 @@ export default class Api {
                 link: item.url
             })
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(this._checkResponse)
         .catch((err) => {
             console.log(err);
         });
     }
 
+    toLike(itemID) {
+        return fetch(`${this._url}/cards/${itemID}/likes`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._headers.authorization
+            }
+        })
+        .then(this._checkResponse)
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
+    toDislike(itemID) {
+        return fetch(`${this._url}/cards/${itemID}/likes`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._headers.authorization
+            }
+        })
+        .then(this._checkResponse)
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    deleteItem(itemID) {
+        return fetch (`${this._url}/cards/${itemID}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._headers.authorization
+            }
+        })
+        .then(this._checkResponse)
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
 }
+
+export const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+    headers: {
+      authorization: 'f35f3961-8176-428d-a013-e1f5dcaddc87',
+      'Content-Type': 'application/json'
+    }
+  })

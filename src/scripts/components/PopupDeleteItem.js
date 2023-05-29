@@ -7,9 +7,10 @@ export default class PopupDeleteItem extends Popup {
     }
 
     //открытие попапа
-    open = (item) => {
+    open = (item, id) => {
         super.open();
         this._item = item;
+        this._id = id;
     }
 
     //слушатели родителя + кнопки сабмита
@@ -17,7 +18,7 @@ export default class PopupDeleteItem extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', e => {
             e.preventDefault();
-            this._submitCallback(this._item);
+            this._submitCallback(this._id);
             this.close();
         });
     }

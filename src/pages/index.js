@@ -6,7 +6,7 @@ import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupDeleteItem from "../scripts/components/PopupDeleteItem.js";
-import Api from "../scripts/components/Api.js";
+import { api } from "../scripts/components/Api.js";
 import {
   popupEditProfileSelector,
   formEditProfile,
@@ -27,15 +27,7 @@ import {
   validationConfig
 } from "../scripts/utils/constants.js";
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
-  headers: {
-    authorization: 'f35f3961-8176-428d-a013-e1f5dcaddc87',
-    'Content-Type': 'application/json'
-  }
-})
-
-const profile = new UserInfo({ profileNameSelector, profileAboutSelector,profileAvatarSelector });
+const profile = new UserInfo({ profileNameSelector, profileAboutSelector, profileAvatarSelector });
 
 //попап с большой картинкой
 const popupBigPicture = new PopupWithImage(popupImageSelector);
@@ -61,14 +53,43 @@ btnEditProfile.addEventListener('click', () => {
 }) 
 
 //удаление карточки
-const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item) => {
-  item.removeItem();
+const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, id) => {
+  api.deleteItem(id)
+  .then(() => {
+    item.removeItem()
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 })
 deleteGalleryItem.setEventListeners();
 
 //создание карточки
 const createCardElement = item => {
-  const cardElement = new Card(item, galleryItemTemplate, popupBigPicture.open, deleteGalleryItem.open).createGalleryItem(); 
+  const cardElement = new Card(
+    item, 
+    galleryItemTemplate, 
+    popupBigPicture.open, 
+    deleteGalleryItem.open, 
+    (like, itemID) => {
+      if(like.classList.contains('gallery__like_active')) {
+        api.toDislike(itemID)
+        .then(res => {
+          cardElement.toggleLike(res.likes)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      } else {
+        api.toLike(itemID)
+        .then(res => {
+          cardElement.toggleLike(res.likes)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+  }).createGalleryItem(); 
   return cardElement;
 }
 
@@ -80,8 +101,8 @@ const section = new Section( item => {
 //попап добавления картинок
 const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
   Promise.all([api.getUserInfo(), api.addCard(item)])
-  .then(([users, items]) => {
-    items.myID = users._id;
+  .then(([user, item]) => {
+    item.myID = user._id;
     section.addItemToBegin(createCardElement(item))
   })
   .catch((err) => {
