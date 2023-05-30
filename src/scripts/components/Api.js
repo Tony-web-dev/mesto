@@ -106,7 +106,7 @@ class Api {
         });
     }
 
-    deleteItem(itemID) {
+    deleteCard(itemID) {
         return fetch (`${this._url}/cards/${itemID}`, {
             method: 'DELETE',
             headers: {

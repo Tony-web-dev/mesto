@@ -4,13 +4,15 @@ export default class PopupDeleteItem extends Popup {
     constructor(popupSelector, submitCallback) {
         super(popupSelector);
         this._submitCallback = submitCallback;
+        this._submitBtn = this._form.querySelector('.form__save-button');
+        this._defaultBtnText = this._submitBtn.textContent;
     }
 
     //открытие попапа
-    open = (item, id) => {
+    open = (item, itemID) => {
         super.open();
         this._item = item;
-        this._id = id;
+        this._id = itemID;
     }
 
     //слушатели родителя + кнопки сабмита
@@ -18,9 +20,13 @@ export default class PopupDeleteItem extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', e => {
             e.preventDefault();
-            this._submitCallback(this._id);
-            this.close();
+            this._submitBtn.textContent = `${this._submitBtn.textContent} ...`;
+            this._submitCallback(this._item, this._id);
         });
+    }
+
+    resetDefaultBtnText() {
+        this._submitBtn.textContent = this._defaultBtnText;
     }
 }
 

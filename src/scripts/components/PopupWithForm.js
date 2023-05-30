@@ -5,6 +5,8 @@ export default class PopupWithForm extends Popup {
         super(popupSelector);
         this._submitCallback = submitCallback;
         this._inputList = this._form.querySelectorAll('.form__input');
+        this._submitBtn = this._form.querySelector('.form__save-button');
+        this._defaultBtnText = this._submitBtn.textContent;
     }
 
     //сбор информации из полей ввода
@@ -28,9 +30,13 @@ export default class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', e => {
             e.preventDefault();
+            this._submitBtn.textContent = `${this._submitBtn.textContent} ...`;
             this._submitCallback(this._getInputValues());
-            this.close();
         });
+    }
+
+    resetDefaultBtnText() {
+        this._submitBtn.textContent = this._defaultBtnText;
     }
 
     //дополнение очистки формы к методу close родителя

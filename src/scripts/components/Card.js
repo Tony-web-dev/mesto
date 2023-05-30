@@ -1,12 +1,11 @@
 export default class Card {
     constructor(item, galleryItemTemplate, openBigPopup, openPopupDeleteItem, changeLike) {
-      console.log(item.likes.length);
       this._galleryItemTemplate = galleryItemTemplate;
       this._openBigPopup = openBigPopup;
       this._openPopupDeleteItem = openPopupDeleteItem;
       this._item = item;
       this._myID = item.myID;
-      this._ownerID = item.owner_id;
+      this._ownerID = item.owner._id;
       this._itemID = item._id;
       this._likes = item.likes;
       this._likeCount = item.likes.length;
@@ -18,13 +17,13 @@ export default class Card {
       const galleryItem = document.querySelector(this._galleryItemTemplate).content.querySelector('.gallery__item').cloneNode(true);
       return galleryItem;
     }
-  
-    //переключатель лайков
+
+    //обработчик лайка на странице
     _handleLike = () => {
-      this._changeLike(this._itemID, this._galleryLike);
+      this._changeLike(this._galleryLike, this._itemID)
     }
 
-    //если лайк не мой - закрасить лайк
+    //если поставленный лайк мой - закрасить лайк
     _checkLike() {
       this._likes.forEach(item => {
         if(item._id === this._myID) {
@@ -33,6 +32,12 @@ export default class Card {
         }
       })
       this._counter.textContent = this._likeCount;
+    }
+  
+    //переключатель лайков
+    toggleLike = (likes) => {
+      this._galleryLike.toggle('gallery__like_active');
+      this._counter.textContent = likes.length;
     }
 
     //видимость иконки корзины
@@ -46,7 +51,7 @@ export default class Card {
   
     //вызов попапа удаления карточки
     _handleDelete = () => {
-      this._openPopupDeleteItem(this);
+      this._openPopupDeleteItem(this, this._itemID);
     }
 
     //удалить карточку
@@ -77,6 +82,7 @@ export default class Card {
       this._galleryHeading.textContent = this._item.name;
       this._galleryImage.src = this._item.link;
       this._galleryImage.alt = `Фото ${this._item.name}`;
+      this._checkLike();
       this._checkGalleryTrash();
       this._setEventListeners();
       return this._galleryItem;

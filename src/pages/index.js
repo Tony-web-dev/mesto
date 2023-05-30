@@ -38,12 +38,17 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, items => {
   api.setUserInfo(items)
     .then(res => {
       profile.setUserInfo({ user: res.name, about: res.about, avatar: res.avatar });
+      popupEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(() => {
+      popupEditProfile.resetDefaultBtnText()
+    })
 })
 popupEditProfile.setEventListeners();
+
 
 //событие по кнопке редакт.профиля 
 btnEditProfile.addEventListener('click', () => {  
@@ -53,13 +58,17 @@ btnEditProfile.addEventListener('click', () => {
 }) 
 
 //удаление карточки
-const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, id) => {
-  api.deleteItem(id)
+const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, itemID) => {
+  api.deleteCard(itemID)
   .then(() => {
     item.removeItem()
+    deleteGalleryItem.close();
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    popupEditProfile.resetDefaultBtnText()
   })
 })
 deleteGalleryItem.setEventListeners();
@@ -72,10 +81,10 @@ const createCardElement = item => {
     popupBigPicture.open, 
     deleteGalleryItem.open, 
     (like, itemID) => {
-      if(like.classList.contains('gallery__like_active')) {
+      if (like.classList.contains('gallery__like_active')) {
         api.toDislike(itemID)
         .then(res => {
-          cardElement.toggleLike(res.likes)
+          cardElement.toggleLike(res.likes);
         })
         .catch((err) => {
           console.log(err);
@@ -83,7 +92,7 @@ const createCardElement = item => {
       } else {
         api.toLike(itemID)
         .then(res => {
-          cardElement.toggleLike(res.likes)
+          cardElement.toggleLike(res.likes);
         })
         .catch((err) => {
           console.log(err);
@@ -100,13 +109,17 @@ const section = new Section( item => {
 
 //попап добавления картинок
 const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
-  Promise.all([api.getUserInfo(), api.addCard(item)])
-  .then(([user, item]) => {
-    item.myID = user._id;
-    section.addItemToBegin(createCardElement(item))
+  api.addCard(item)
+  .then(items => {
+    items.myID = profile.getUserID();
+    section.addItemToBegin(createCardElement(items))
+    popupAddGallery.close();
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    popupEditProfile.resetDefaultBtnText()
   })
 }); 
 popupAddGallery.setEventListeners();
@@ -121,11 +134,15 @@ btnAddGallery.addEventListener('click', () => {
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, users => {
   api.setAvatar(users)
   .then(res => {
-    profile.setUserInfo({ user: res.name, about: res.about, avatar: res.avatar })
+    profile.setUserInfo({ user: res.name, about: res.about, avatar: res.avatar });
+    popupEditAvatar.close();
   })   
   .catch((err) => {
     console.log(err);
-  });
+  })
+  .finally(() => {
+    popupEditProfile.resetDefaultBtnText()
+  })
 })
 popupEditAvatar.setEventListeners();
 
@@ -147,10 +164,11 @@ formAddGalleryItemValidate.enableValidation();
 const formEditAvatarValidate = new FormValidator(validationConfig, formEditAvatar);
 formEditAvatarValidate.enableValidation();
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]) //проверить время загрузки если последовательные then
+Promise.all([api.getUserInfo(), api.getInitialCards()]) 
 .then(([users, items]) => {
   items.forEach(item => item.myID = users._id);
   profile.setUserInfo({ user: users.name, about: users.about, avatar: users.avatar });
+  profile.setUserID(users._id);
   section.renderItems(items);
 })
 .catch((err) => {
