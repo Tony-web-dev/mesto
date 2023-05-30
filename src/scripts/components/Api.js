@@ -1,6 +1,6 @@
 class Api {
     constructor(options) {
-        this._url = options.baseUrl;
+        this._baseUrl = options.baseUrl;
         this._headers = options.headers;
     }
 
@@ -8,12 +8,12 @@ class Api {
         if(res.ok) {
             return res.json();
         } else {
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Произошла ошибка: ${res.status}`);
         }
     }
 
     getUserInfo() {
-        return fetch(`${this._url}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 authorization: this._headers.authorization
             }
@@ -24,13 +24,13 @@ class Api {
         });
     }
 
-    setUserInfo(user) {
-        return fetch(`${this._url}/users/me`, {
+    setUserInfo(userData) {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: user.user,
-                about: user.about
+                name: userData.person,
+                about: userData.about
             })
         })
         .then(this._checkResponse)
@@ -40,7 +40,7 @@ class Api {
     }
 
     setAvatar(user) {
-        return fetch(`${this._url}/users/me/avatar`, {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -54,7 +54,7 @@ class Api {
     }
 
     getInitialCards() {
-        return fetch(`${this._url}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             headers: {
                 authorization: this._headers.authorization
             }
@@ -66,7 +66,7 @@ class Api {
     }
 
     addCard(item) {
-        return fetch(`${this._url}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -80,8 +80,8 @@ class Api {
         });
     }
 
-    toLike(itemID) {
-        return fetch(`${this._url}/cards/${itemID}/likes`, {
+    toLike(cardID) {
+        return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
             method: 'PUT',
             headers: {
                 authorization: this._headers.authorization
@@ -93,8 +93,8 @@ class Api {
         });
     }
 
-    toDislike(itemID) {
-        return fetch(`${this._url}/cards/${itemID}/likes`, {
+    toDislike(cardID) {
+        return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
             method: 'DELETE',
             headers: {
                 authorization: this._headers.authorization
@@ -106,8 +106,8 @@ class Api {
         });
     }
 
-    deleteCard(itemID) {
-        return fetch (`${this._url}/cards/${itemID}`, {
+    deleteCard(cardID) {
+        return fetch (`${this._baseUrl}/cards/${cardID}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._headers.authorization

@@ -1,5 +1,5 @@
 export default class UserInfo {
-    constructor({ profileNameSelector, profileAboutSelector,profileAvatarSelector }) {
+    constructor({ profileNameSelector, profileAboutSelector, profileAvatarSelector }) {
         this._profileName = document.querySelector(profileNameSelector);
         this._profileAbout = document.querySelector(profileAboutSelector);
         this._profileAvatar = document.querySelector(profileAvatarSelector);
@@ -8,25 +8,21 @@ export default class UserInfo {
     //получение текущей информации о пользователе
     getUserInfo = () => {
         return {
-            user: this._profileName.textContent,
+            person: this._profileName.textContent,
             about: this._profileAbout.textContent
             }
     }
 
     //внедрение информации о пользователе на страницу
-    setUserInfo = ({ user, about, avatar }) => {
-        this._profileName.textContent = user;
+    setUserInfo = ({ person, about, avatar, _id }) => {
+        this._profileName.textContent = person;
         this._profileAbout.textContent = about;
         this._profileAvatar.src = avatar;
-    }
-
-    //получить id
-    getUserID(id) {
-        this._id = id;
+        this._id = _id
     }
 
     //установить id
-    setUserID() {
+    setID() {
         return this._id;
     }
 }

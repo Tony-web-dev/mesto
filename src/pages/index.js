@@ -26,18 +26,28 @@ import {
   popupImageSelector,
   validationConfig
 } from "../scripts/utils/constants.js";
+ 
+Promise.all([api.getUserInfo(), api.getInitialCards()]) 
+.then(([user, items]) => {
+  items.forEach(dataCard => {
+    dataCard.myID = user._id
+  })
+  userProfile.setUserInfo({ person: user.name, about: user.about, avatar: user.avatar, _id: user._id });
+  section.renderItems(items);
+})
+.catch((err) => {
+  console.log(err);
+});
 
-const profile = new UserInfo({ profileNameSelector, profileAboutSelector, profileAvatarSelector });
 
-//попап с большой картинкой
-const popupBigPicture = new PopupWithImage(popupImageSelector);
-popupBigPicture.setEventListeners();
+//загрузка профиля
+const userProfile = new UserInfo({ profileNameSelector, profileAboutSelector, profileAvatarSelector });
 
 //попап редактирования профиля
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, items => {
-  api.setUserInfo(items)
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, userData => {
+  api.setUserInfo(userData)
     .then(res => {
-      profile.setUserInfo({ user: res.name, about: res.about, avatar: res.avatar });
+      userProfile.setUserInfo({ person: res.name, about: res.about, avatar: res.avatar, _id: res._id });
       popupEditProfile.close();
     })
     .catch((err) => {
@@ -49,92 +59,18 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, items => {
 })
 popupEditProfile.setEventListeners();
 
-
 //событие по кнопке редакт.профиля 
 btnEditProfile.addEventListener('click', () => {  
   formEditProfileValidate.resetValidation(); 
-  popupEditProfile.setInputValues(profile.getUserInfo());
+  popupEditProfile.setInputValues(userProfile.getUserInfo());
   popupEditProfile.open();
-}) 
-
-//удаление карточки
-const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, itemID) => {
-  api.deleteCard(itemID)
-  .then(() => {
-    item.removeItem()
-    deleteGalleryItem.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    popupEditProfile.resetDefaultBtnText()
-  })
-})
-deleteGalleryItem.setEventListeners();
-
-//создание карточки
-const createCardElement = item => {
-  const cardElement = new Card(
-    item, 
-    galleryItemTemplate, 
-    popupBigPicture.open, 
-    deleteGalleryItem.open, 
-    (like, itemID) => {
-      if (like.classList.contains('gallery__like_active')) {
-        api.toDislike(itemID)
-        .then(res => {
-          cardElement.toggleLike(res.likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-      } else {
-        api.toLike(itemID)
-        .then(res => {
-          cardElement.toggleLike(res.likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-      }
-  }).createGalleryItem(); 
-  return cardElement;
-}
-
-//отрисовка галереи
-const section = new Section( item => {
-    section.addItemToEnd(createCardElement(item));
-}, gallerySelector);
-
-//попап добавления картинок
-const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
-  api.addCard(item)
-  .then(items => {
-    items.myID = profile.getUserID();
-    section.addItemToBegin(createCardElement(items))
-    popupAddGallery.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    popupEditProfile.resetDefaultBtnText()
-  })
-}); 
-popupAddGallery.setEventListeners();
-
-//событие по кнопке открытия попапа добавл.картинки 
-btnAddGallery.addEventListener('click', () => { 
-  formAddGalleryItemValidate.resetValidation(); 
-  popupAddGallery.open();
 }) 
 
 //попап редактирования аватара
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, users => {
   api.setAvatar(users)
   .then(res => {
-    profile.setUserInfo({ user: res.name, about: res.about, avatar: res.avatar });
+    userProfile.setUserInfo({ person: res.name, about: res.about, avatar: res.avatar, _id: res._id });
     popupEditAvatar.close();
   })   
   .catch((err) => {
@@ -152,6 +88,80 @@ btnEditAvatar.addEventListener('click', () => {
   popupEditAvatar.open();
 })
 
+
+//создание карточки
+const createCardElement = item => {
+  const cardElement = new Card(item, galleryItemTemplate, popupBigPicture.open, deleteGalleryItem.open, (like, cardID) => {
+      if (like.classList.contains('gallery__like_active')) {
+        api.toDislike(cardID)
+        .then(res => {
+          cardElement.toggleLike(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      } else {
+        api.toLike(cardID)
+        .then(res => {
+          cardElement.toggleLike(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+  }).createGalleryItem(); 
+  return cardElement;
+}
+
+//отрисовка галереи
+const section = new Section(item => {
+    section.addItemToEnd(createCardElement(item));
+}, gallerySelector);
+
+//попап добавления картинок
+const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
+  api.addCard(item)
+  .then(dataCard => {
+    dataCard.myID = userProfile.setID();
+    section.addItemToBegin(createCardElement(dataCard))
+    popupAddGallery.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    popupEditProfile.resetDefaultBtnText()
+  })
+}); 
+popupAddGallery.setEventListeners();
+
+//событие по кнопке открытия попапа добавл.картинки 
+btnAddGallery.addEventListener('click', () => { 
+  formAddGalleryItemValidate.resetValidation(); 
+  popupAddGallery.open();
+}) 
+
+//попап с большой картинкой
+const popupBigPicture = new PopupWithImage(popupImageSelector);
+popupBigPicture.setEventListeners();
+
+//удаление карточки
+const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, itemID) => {
+  api.deleteCard(itemID)
+  .then(() => {
+    item.removeItem()
+    deleteGalleryItem.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    popupEditProfile.resetDefaultBtnText()
+  })
+})
+deleteGalleryItem.setEventListeners();
+
+
 //проверяем форму редакт.профиля валидатором 
 const formEditProfileValidate = new FormValidator(validationConfig, formEditProfile); 
 formEditProfileValidate.enableValidation(); 
@@ -164,13 +174,4 @@ formAddGalleryItemValidate.enableValidation();
 const formEditAvatarValidate = new FormValidator(validationConfig, formEditAvatar);
 formEditAvatarValidate.enableValidation();
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]) 
-.then(([users, items]) => {
-  items.forEach(item => item.myID = users._id);
-  profile.setUserInfo({ user: users.name, about: users.about, avatar: users.avatar });
-  profile.setUserID(users._id);
-  section.renderItems(items);
-})
-.catch((err) => {
-  console.log(err);
-});
+
