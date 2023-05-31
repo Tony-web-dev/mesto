@@ -20,23 +20,23 @@ export default class Card {
 
     //обработчик лайка на странице
     _handleLike = () => {
-      this._changeLike(this._likeIcon, this._cardID)
-    }
+    this._changeLike(this._likeIcon, this._cardID)
+     }
 
-    //если поставленный лайк мой - закрасить лайк
+   //если поставленный лайк мой - закрасить лайк
     _isLiked() {
       this._likes.forEach(card => {
         if(card._id === this._myID) {
           this._likeIcon.classList.add('gallery__like_active');
-          return;
+        return;
         }
       })
       this._likeCounter.textContent = this._likeCount;
     }
   
-    //переключатель лайков
-    toggleLike = (likes) => {
-      this._likeIcon.toggle('gallery__like_active');
+    // переключатель лайков
+    toggleLike(likes) {
+      this._likeIcon.classList.toggle('gallery__like_active');
       this._likeCounter.textContent = likes.length;
     }
 

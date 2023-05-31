@@ -77,7 +77,7 @@ const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, users => {
     console.log(err);
   })
   .finally(() => {
-    popupEditProfile.resetDefaultBtnText()
+    popupEditAvatar.resetDefaultBtnText()
   })
 })
 popupEditAvatar.setEventListeners();
@@ -95,6 +95,7 @@ const createCardElement = item => {
       if (like.classList.contains('gallery__like_active')) {
         api.toDislike(cardID)
         .then(res => {
+          console.log(res);
           cardElement.toggleLike(res.likes);
         })
         .catch((err) => {
@@ -109,8 +110,8 @@ const createCardElement = item => {
           console.log(err);
         })
       }
-  }).createGalleryItem(); 
-  return cardElement;
+  });
+  return cardElement.createGalleryItem();
 }
 
 //отрисовка галереи
@@ -130,7 +131,7 @@ const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
     console.log(err);
   })
   .finally(() => {
-    popupEditProfile.resetDefaultBtnText()
+    popupAddGallery.resetDefaultBtnText()
   })
 }); 
 popupAddGallery.setEventListeners();
@@ -156,7 +157,7 @@ const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, it
     console.log(err);
   })
   .finally(() => {
-    popupEditProfile.resetDefaultBtnText()
+    deleteGalleryItem.resetDefaultBtnText()
   })
 })
 deleteGalleryItem.setEventListeners();
