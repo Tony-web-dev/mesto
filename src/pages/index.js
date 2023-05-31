@@ -29,8 +29,8 @@ import {
  
 Promise.all([api.getUserInfo(), api.getInitialCards()]) 
 .then(([user, items]) => {
-  items.forEach(dataCard => {
-    dataCard.myID = user._id
+  items.forEach(items => {
+    items.myID = user._id;
   })
   userProfile.setUserInfo({ person: user.name, about: user.about, avatar: user.avatar, _id: user._id });
   section.renderItems(items);
@@ -50,7 +50,7 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, userData =>
       userProfile.setUserInfo({ person: res.name, about: res.about, avatar: res.avatar, _id: res._id });
       popupEditProfile.close();
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
     })
     .finally(() => {
@@ -73,11 +73,11 @@ const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, users => {
     userProfile.setUserInfo({ person: res.name, about: res.about, avatar: res.avatar, _id: res._id });
     popupEditAvatar.close();
   })   
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   })
   .finally(() => {
-    popupEditAvatar.resetDefaultBtnText()
+    popupEditAvatar.resetDefaultBtnText();
   })
 })
 popupEditAvatar.setEventListeners();
@@ -92,13 +92,12 @@ btnEditAvatar.addEventListener('click', () => {
 //создание карточки
 const createCardElement = item => {
   const cardElement = new Card(item, galleryItemTemplate, popupBigPicture.open, deleteGalleryItem.open, (like, cardID) => {
-      if (like.classList.contains('gallery__like_active')) {
+    if (like.classList.contains('gallery__like_active')) {
         api.toDislike(cardID)
         .then(res => {
-          console.log(res);
           cardElement.toggleLike(res.likes);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
       } else {
@@ -106,7 +105,7 @@ const createCardElement = item => {
         .then(res => {
           cardElement.toggleLike(res.likes);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
       }
@@ -123,11 +122,11 @@ const section = new Section(item => {
 const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
   api.addCard(item)
   .then(dataCard => {
-    dataCard.myID = userProfile.setID();
+    dataCard.myID = userProfile.setID(); //? не могу придумать как впихнуть это в createCardElement и надо ли туда пихать, если туда приходит полный res с сервера
     section.addItemToBegin(createCardElement(dataCard))
     popupAddGallery.close();
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   })
   .finally(() => {
@@ -153,7 +152,7 @@ const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, it
     item.removeItem()
     deleteGalleryItem.close();
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   })
   .finally(() => {

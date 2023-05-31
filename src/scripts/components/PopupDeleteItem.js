@@ -25,6 +25,7 @@ export default class PopupDeleteItem extends Popup {
         });
     }
 
+    //сброс текста кнопки сабмита до дефолтного
     resetDefaultBtnText() {
         this._submitBtn.textContent = this._defaultBtnText;
     }

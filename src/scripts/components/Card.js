@@ -18,23 +18,30 @@ export default class Card {
       return galleryItem;
     }
 
-    //обработчик лайка на странице
+    //обработчик лайка при отрисовке карточек
     _handleLike = () => {
-    this._changeLike(this._likeIcon, this._cardID)
+      this._changeLike(this._likeIcon, this._cardID);
      }
 
-   //если поставленный лайк мой - закрасить лайк
-    _isLiked() {
-      this._likes.forEach(card => {
-        if(card._id === this._myID) {
-          this._likeIcon.classList.add('gallery__like_active');
-        return;
-        }
-      })
+    //найди мои лайки
+    _checkLike = () => {
+      return this._likes.some(like => like._id === this._myID);
+    }
+
+    //если поставленный лайк мой - закрась его
+    _isLiked = () => {
+      if(this._checkLike()) {
+        this._likeIcon.classList.add('gallery__like_active');
+      return;
+      }
+    }
+
+    //считалка лайков
+    _countLikes = () => {
       this._likeCounter.textContent = this._likeCount;
     }
   
-    // переключатель лайков
+    //переключатель лайков
     toggleLike(likes) {
       this._likeIcon.classList.toggle('gallery__like_active');
       this._likeCounter.textContent = likes.length;
@@ -83,6 +90,7 @@ export default class Card {
       this._galleryImage.src = this._dataCard.link;
       this._galleryImage.alt = `Фото ${this._dataCard.name}`;
       this._isLiked();
+      this._countLikes();
       this._checkGalleryTrash();
       this._setEventListeners();
       return this._galleryItem;

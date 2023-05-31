@@ -35,6 +35,7 @@ export default class PopupWithForm extends Popup {
         });
     }
 
+    //сброс текста кнопки сабмита до дефолтного
     resetDefaultBtnText() {
         this._submitBtn.textContent = this._defaultBtnText;
     }
