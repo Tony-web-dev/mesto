@@ -6,7 +6,7 @@ import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupDeleteItem from "../scripts/components/PopupDeleteItem.js";
-import { api } from "../scripts/components/Api.js";
+import Api from "../scripts/components/Api.js";
 import {
   popupEditProfileSelector,
   formEditProfile,
@@ -27,6 +27,14 @@ import {
   validationConfig
 } from "../scripts/utils/constants.js";
  
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: 'f35f3961-8176-428d-a013-e1f5dcaddc87',
+    'Content-Type': 'application/json'
+  }
+})
+
 Promise.all([api.getUserInfo(), api.getInitialCards()]) 
 .then(([user, items]) => {
   items.forEach(items => {
@@ -122,7 +130,7 @@ const section = new Section(item => {
 const popupAddGallery = new PopupWithForm(popupAddGallerySelector, item => {
   api.addCard(item)
   .then(dataCard => {
-    dataCard.myID = userProfile.setID(); //? не могу придумать как впихнуть это в createCardElement и надо ли туда пихать, если туда приходит полный res с сервера
+    dataCard.myID = userProfile.setID();
     section.addItemToBegin(createCardElement(dataCard))
     popupAddGallery.close();
   })
@@ -148,7 +156,7 @@ popupBigPicture.setEventListeners();
 //удаление карточки
 const deleteGalleryItem = new PopupDeleteItem(popupDeleteItemSelector, (item, itemID) => {
   api.deleteCard(itemID)
-  .then(() => {
+  .then(res => {
     item.removeItem()
     deleteGalleryItem.close();
   })
